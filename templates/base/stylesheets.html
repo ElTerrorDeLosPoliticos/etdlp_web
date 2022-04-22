@@ -1,0 +1,35 @@
+{% load static %}
+
+<script src="{% static 'js/config.navbar-vertical.js' %}"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="{% static 'lib/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet">
+<link href="{% static 'lib/select2/select2.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/flatpickr/flatpickr.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/datatables-bs4/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/datatables.net-responsive-bs4/responsive.bootstrap4.css' %}" rel="stylesheet">
+<link href="{% static 'lib/plyr/plyr.css' %}" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/theme.css' %}" data-skin="default">
+<link rel="stylesheet" href="{% static 'css/theme-dark.css' %}" data-skin="dark">
+<link href="{% static 'lib/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+<link href="{% static 'project/base-custom.css' %}" rel="stylesheet" data-skin="default"/>
+<link href="{% static 'project/base-custom-dark.css' %}" rel="stylesheet" data-skin="dark"/>
+<style>
+  .errorlist {
+    font-style: italic;
+    color: var(--danger);
+    font-size: 0.83333rem;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  {#let skin = localStorage.getItem('skin') || 'default';#}
+  let skin = 'default';
+  let disabledSkinStylesheet = document.querySelectorAll('link[data-skin]:not([data-skin="' + skin + '"])');
+  // Disable unused skin immediately
+  disabledSkinStylesheet.forEach(function (e) {
+    e.setAttribute('rel', '');
+    e.setAttribute('disabled', true);
+  });
+</script>

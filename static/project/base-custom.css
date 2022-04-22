@@ -1,0 +1,67 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.select2, .select2-results {
+  width: 100% !important;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+  content: "Buscar";
+}
+
+:root {
+  --falcon-100: #f9fafd;
+  --falcon-colored-link-100-hover-color: #fafbfd;
+  --falcon-200: #edf2f9;
+  --falcon-colored-link-200-hover-color: #f1f5fa;
+  --falcon-300: #d8e2ef;
+  --falcon-colored-link-300-hover-color: #e0e8f2;
+  --falcon-400: #b6c1d2;
+  --falcon-colored-link-400-hover-color: #c5cddb;
+  --falcon-500: #9da9bb;
+  --falcon-colored-link-500-hover-color: #7e8796;
+  --falcon-600: #748194;
+  --falcon-colored-link-600-hover-color: #5d6776;
+  --falcon-700: #5e6e82;
+  --falcon-colored-link-700-hover-color: #4b5868;
+  --falcon-800: #4d5969;
+  --falcon-colored-link-800-hover-color: #3e4754;
+  --falcon-900: #344050;
+  --falcon-colored-link-900-hover-color: #2a3340;
+  --falcon-1000: #232e3c;
+  --falcon-colored-link-1000-hover-color: #1c2530;
+  --falcon-1100: #0b1727;
+}
+
+.theme-control-toggle .theme-control-toggle-label {
+  height: 30px;
+  width: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background-color: var(--falcon-300);
+  color: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.theme-control-toggle .theme-control-toggle-label:hover {
+  background-color: var(--falcon-400);
+}

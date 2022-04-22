@@ -1,0 +1,39 @@
+{% load static %}
+<!-- ===============================================-->
+<!--    JavaScripts-->
+<!-- ===============================================-->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'lib/@fortawesome/all.min.js' %}"></script>
+<script src="{% static 'lib/stickyfilljs/stickyfill.min.js' %}"></script>
+<script src="{% static 'lib/sticky-kit/sticky-kit.min.js' %}"></script>
+<script src="{% static 'lib/is_js/is.min.js' %}"></script>
+<script src="{% static 'lib/lodash/lodash.min.js' %}"></script>
+<script src="{% static 'lib/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+<script src="{% static 'lib/select2/select2.min.js' %}"></script>
+<script src="{% static 'lib/flatpickr/flatpickr.min.js' %}"></script>
+<script src="{% static 'lib/flatpickr/i10n/es.min.js' %}"></script>
+<script src="{% static 'lib/jquery-validation-1.19.3/jquery.validate.min.js' %}"></script>
+<script src="{% static 'lib/jquery-validation-1.19.3/localization/messages_es_PE.min.js' %}"></script>
+<script src="{% static 'lib/plyr/plyr.polyfilled.min.js' %}"></script>
+
+<script src="{% static 'lib/datatables/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-bs4/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'lib/datatables.net-responsive/dataTables.responsive.js' %}"></script>
+<script src="{% static 'lib/datatables.net-responsive-bs4/responsive.bootstrap4.js' %}"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+
+<script src="{% static 'js/theme.min.js' %}"></script>
+<script>
+  $('.theme-control-toggle').on('click', function (e) {
+    e.preventDefault();
+    let skin = localStorage.getItem('skin') || 'default';
+    let new_skin = skin === 'dark' ? 'default' : 'dark'
+    localStorage.setItem('skin', new_skin);
+    location.reload();
+  }).each(function () {
+    $(this).find(storage.isDark ? '.theme-control-toggle-light' : '.theme-control-toggle-dark').removeClass('d-none');
+  });
+  flatpickr.localize(flatpickr.l10ns.es);
+</script>
