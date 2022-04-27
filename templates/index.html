@@ -1,0 +1,126 @@
+{% extends 'base/root.html' %}
+{% load static %}
+
+{% block extrastyle %}{% endblock %}
+{% block body %}
+  <section style="background-image: url('{% static 'project/img/landing.png' %}');background-size: cover;" id="">
+
+
+    <div style=" padding: 300px 0 300px 100px;">
+      <div class="col" style="width: 45%">
+        <h1>ETDLP ...</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi delectus est, exercitationem facere illo iusto laborum maxime modi nobis officiis, quis repudiandae saepe sequi totam unde ut voluptatibus voluptatum.</p>
+        <button class="btn btn-warning text-white" style="padding: 2px 50px;">Estadísticas <br> Generales</button>
+      </div>
+      <img class="position-absolute" style="left: auto; right: 0; top:100px;" src="{% static 'project/img/imgae_landing.png' %}" alt="">
+    </div>
+  </section>
+  <section class="bg-2">
+    <div style="padding: 100px">
+      <h1 class="text-center section-title">Todo en un solo lugar</h1>
+      <div class="row" style="margin-top:20px ">
+        {% comment %}<div class="col col-3 text-center">
+            <div class="number">+200K</div>
+            <div class="title">Registros de visitas</div>
+            <div class="description">Presidencia, Congreso, Ministerios <br>
+              Desde el 28 de julio 2021<br>
+              Actualizado diariamente
+            </div>
+          </div>
+          <div class="col col-3 text-center">
+            <div class="number">+1.1M</div>
+            <div class="title">Pagos de Planilla</div>
+            <div class="description">Ministerios y despacho presidencial<br>
+              Desde julio 2021<br>
+              Actualizado mensualmente
+            </div>
+          </div>{% endcomment %}
+        <div class="col col-6 text-center">
+          <div class="number">+21K</div>
+          <div class="title">Empresas Proveedoras</div>
+          <div class="description">Desde el 2021<br>
+            Actualizado mensualmente
+          </div>
+        </div>
+        <div class="col col-6 text-center">
+          <div class="number">+300k</div>
+          <div class="title">Registros de Afiliación Política</div>
+          <div class="description">Afiliación política de todos los DNI
+            en nuestras bases de datos<br>
+            Actualizado cada 3 meses
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  <section class="position-relative h-auto">
+    <div class="row w-100 position-absolute" style="padding: 100px">
+      <div class="col col-6">
+        <img src="{% static 'project/img/image_1.png' %}" class="" style="width: 90%" alt="">
+      </div>
+      <div class="col col-6">
+        <h1 class="section-title" style="margin: 30px 0px">Buscador de Proveedores</h1>
+        <div>Organizamos millones de puntos de datos en una solo lugar</div>
+      </div>
+    </div>
+    <img src="{% static 'project/img/1.png' %}" class="h-auto w-100" style="z-index: -1" alt="">
+  </section>
+  <section class="position-relative h-auto">
+    <div class="row w-100 position-absolute" style="padding: 100px">
+      <div class="col col-6">
+        <h1 class=" section-title">Perfil de Proveedores</h1>
+      </div>
+      <div class="col col-6 position-relative">
+        <img src="{% static 'project/img/image__2.png' %}" class="position-absolute l-auto" style="left:auto; right: 0;width: 55%" alt="">
+
+      </div>
+    </div>
+    <img src="{% static 'project/img/2.png' %}" class="h-auto w-100" style="z-index: -1" alt="">
+  </section>
+  <section style="background-color: #2C3E5C;">
+    <div class="row w-100" style="padding: 100px">
+      <div class="col" style="width: 45%; margin-top: 80px;">
+        <img src="{% static 'project/img/image_3.png' %}" alt="">
+      </div>
+      <div class="col" style="width: 55%;margin-top: 60px;">
+        <h1 class="section-title-dark">Empresas que contratan con el estado teniendo sanciones</h1>
+      </div>
+    </div>
+  </section>
+  <!-- Footer-->
+  <footer class="footer text-center">
+    <div class="container">
+      <div class="row">
+        <!-- Footer Location-->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Location</h4>
+          <p class="lead mb-0">
+            2215 John Daniel Drive
+            <br/>
+            Clark, MO 65243
+          </p>
+        </div>
+        <!-- Footer Social Icons-->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Around the Web</h4>
+          <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+        </div>
+        <!-- Footer About Text-->
+        <div class="col-lg-4">
+          <h4 class="text-uppercase mb-4">About Freelancer</h4>
+          <p class="lead mb-0">
+            Freelance is a free to use, MIT licensed Bootstrap theme created by
+            <a href="http://startbootstrap.com">Start Bootstrap</a>
+            .
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+{% block extrajs %}{% endblock %}

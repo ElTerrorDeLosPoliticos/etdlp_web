@@ -1,87 +1,15 @@
-{% load static %}
-<nav class="navbar navbar-light navbar-glass navbar-top sticky-kit navbar-expand-lg">
-
-  <button class="btn navbar-toggler-humburger-icon navbar-toggler mr-1 mr-sm-3" type="button" data-toggle="collapse" data-target="#navbarStandard" aria-controls="navbarStandard" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
-      class="toggle-line"></span></span></button>
-  <a class="navbar-brand mr-1 mr-sm-3" href="#">
-    <div class="d-flex align-items-center"><img class="mr-2" src="{% static 'img/illustrations/falcon.png' %}" alt="" width="40"/><span class="text-sans-serif">falcon</span>
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2C3E5C;" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" style="font-weight: 700" href="#">ETDLP</a>
+    <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="">Productos</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="">Fuentes de información</a></li>
+      </ul>
     </div>
-  </a>
-  <div class="collapse navbar-collapse" id="navbarStandard">
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link dropdown-toggle" id="navbarDropdownHome" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
-        <div class="dropdown-menu dropdown-menu-card" aria-labelledby="navbarDropdownHome">
-          <div class="bg-white rounded-soft py-2">
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <a class="dropdown-item" href="#">Dashboard alt</a>
-            <a class="dropdown-item" href="#">Feed</a>
-            <a class="dropdown-item" href="#">Landing</a>
-          </div>
-        </div>
-      </li>
-
-      <li class="nav-item dropdown dropdown-on-hover"><a class="nav-link dropdown-toggle" id="navbarDropdownDocumentation" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentation</a>
-        <div class="dropdown-menu dropdown-menu-card" aria-labelledby="navbarDropdownDocumentation">
-          <div class="bg-white rounded-soft py-2">
-            <a class="dropdown-item" href="#">Getting started</a>
-            <a class="dropdown-item" href="#">File structure</a>
-            <a class="dropdown-item" href="#">Customization</a>
-            <a class="dropdown-item" href="#">Dark mode</a>
-            <a class="dropdown-item" href="#">Fluid layout</a>
-            <a class="dropdown-item" href="#">Gulp</a>
-            <a class="dropdown-item" href="#">RTL</a>
-            <a class="dropdown-item" href="#">Plugins</a>
-          </div>
-        </div>
-      </li>
-    </ul>
   </div>
-  <ul class="navbar-nav navbar-nav-icons ml-auto flex-row align-items-center">
-    {% comment %}<li class="nav-item">
-      <div class="theme-control-toggle fa-icon-wait px-2">
-        <label class="mb-0 theme-control-toggle-label theme-control-toggle-light d-none" for="themeControlToggle"
-               data-toggle="tooltip" data-placement="left" title="Modo Claro" aria-label="Switch to light theme">
-          <span class="fas fa-sun fs-0"></span>
-        </label>
-        <label class="mb-0 theme-control-toggle-label theme-control-toggle-dark d-none" for="themeControlToggle"
-               data-toggle="tooltip" data-placement="left" title="Modo Oscuro" aria-label="Switch to dark theme">
-          <span class="fas fa-moon fs-0"></span>
-        </label>
-      </div>
-    </li>{% endcomment %}
-    {% if request.user.is_authenticated %}
-      <li class="nav-item">
-        <div class="col-md">
-          <h5 class="mb-0" style="font-size: 1rem">Username</h5>
-        </div>
-      </li>
-      <li class="nav-item dropdown dropdown-on-hover">
-        <a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <div class="avatar avatar-xl">
-            <img class="rounded-circle" src="{% static 'img/team/3-thumb.png' %}" alt=""/>
-
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
-          <div class="bg-white rounded-soft py-2">
-
-            <a class="dropdown-item" href="#!">Set status</a>
-            <a class="dropdown-item" href="#">Profile &amp; account</a>
-            <a class="dropdown-item" href="#!">Feedback</a>
-
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Settings</a>
-            {% comment %}<a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
-            <a class="dropdown-item" href="{% url 'create_email' %}">Enviar email</a>{% endcomment %}
-          </div>
-        </div>
-      </li>
-    {% else %}
-      <li class="nav-item">
-{#        <a class="btn btn-primary mt-2 " style="background: #a82f71; border-color: #a82f71" href="{% url 'login' %}?next={{ request.path }}">Iniciar sesión</a>#}
-      </li>
-    {% endif %}
-  </ul>
 </nav>
-
-
