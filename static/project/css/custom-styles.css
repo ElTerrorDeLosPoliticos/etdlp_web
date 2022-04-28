@@ -4,15 +4,3 @@
 .section-title-dark{
   color: white;
 }
-.bg-2 .number {
-  font-family: 'Pathway Gothic One', sans-serif;
-  font-size: 100px;
-  color: #219EE4;
-}
-.bg-2 .title {
-  font-weight: bold;
-  line-height: 2.5rem;
-}
-.bg-2 .description {
-  line-height: 2.5rem;
-}

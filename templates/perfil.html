@@ -1,0 +1,120 @@
+{% extends 'base/root.html' %}
+{% load static %}
+
+{% block extrastyle %}
+  <style>
+    :root {
+      --bs-body-bg: #f8f8f8;
+      --bs-body-color: #2F333A;
+    }
+
+    .perfil-block {
+      padding: 30px;
+    }
+
+    section {
+      padding: 50px 0;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  <section style="padding-top: 150px" id="">
+    <div class="container">
+      <h2>
+        {{ empresa.razon_social }}
+      </h2>
+      <div style="font-size: 20px;line-height: 1.5">
+        <div>Empresa de Propiedad Social <br> RUC: {{ empresa.ruc }}</div>
+      </div>
+
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h3 class="mb-3">Información</h3>
+      <p>Corporativo DEA cuenta con 3 socios y 1 representante </p>
+      <div class="row w-100" style="background-color: white">
+        <div class="col col-6 perfil-block border-end border-2">
+          <h3>Socios</h3>
+          <div id="socios-pie" style="min-width: 100%;height:300px;"></div>
+        </div>
+        <div class="col col-6 perfil-block border-start border-2">
+          <h3>Representantes</h3>
+        </div>
+        <div class="col col-12 perfil-block border-top border-4">
+          <h3>Información Administrativa</h3>
+        </div>
+        <div class="col col-12 perfil-block border-top border-4">
+          <h3>Información Geográfica</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h3 class="mb-3">Contratos</h3>
+      <p>Corporativo DEA obtuvo 3 contratos por S/40,000.</p>
+      <div class="row w-100" style="background-color: white">
+        <div class="col col-6 perfil-block border-end border-2">
+          <h3>Principales Contratantes</h3>
+        </div>
+        <div class="col col-6 perfil-block border-start border-2">
+          <h3>Tipo de Contrato</h3>
+        </div>
+        <div class="col col-12 perfil-block border-top border-4">
+          <h3>Listado de Contratos</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <h3 class="mb-3">Sanciones</h3>
+      {#      <p>Corporativo DEA obtuvo 3 contratos  por S/40,000.</p>#}
+      <div class="row w-100" style="background-color: white">
+        <div class="col col-12 perfil-block">
+          <h3>Listado de Sanciones</h3>
+        </div>
+        <div class="col col-12 perfil-block border-top border-4">
+          <h3>Listado de Sanciones</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}
+{% block extrajs %}
+  <script src="{% static 'project/lib/echarts/echarts.min.js' %}"></script>
+  <script>
+    var myChart = echarts.init($('#socios-pie')[0]);
+    // Draw the chart
+    myChart.setOption({
+      tooltip: {
+        trigger: 'item'
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: '80%',
+          data: [
+            {value: 54, name: 'Dina'},
+            {value: 35, name: 'Fredy'},
+            {value: 10, name: 'Aldrick'},
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    });
+    window.onresize = function () {
+      myChart.resize();
+    };
+  </script>
+{% endblock %}

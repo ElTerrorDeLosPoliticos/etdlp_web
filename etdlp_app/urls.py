@@ -3,6 +3,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', views.main_page, name='main_page'),
+    path('perfil/<ruc>', views.perfil_empresa, name='perfil_empresa'),
     # path('logout/', views.logout,name="logout"),
     # path('create_email/', views.create_email, name="create_email"),
     # path('register', views.RegisterOrgView.as_view(), name="organization_register"),
