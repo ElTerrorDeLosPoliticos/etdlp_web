@@ -6,10 +6,11 @@
     :root {
       --bs-body-bg: #f8f8f8;
       --bs-body-color: #2F333A;
+      --padding-perfil-block: 30px;
     }
 
     .perfil-block {
-      padding: 30px;
+      padding: var(--padding-perfil-block);
     }
 
     section {
@@ -24,7 +25,7 @@
         {{ empresa.razon_social }}
       </h2>
       <div style="font-size: 20px;line-height: 1.5">
-        <div>Empresa de Propiedad Social <br> RUC: {{ empresa.ruc }}</div>
+        <div>{{ empresa.tipoempresa }} <br> RUC: {{ empresa.ruc }}</div>
       </div>
 
     </div>
@@ -32,14 +33,20 @@
   <section>
     <div class="container">
       <h3 class="mb-3">Información</h3>
-      <p>Corporativo DEA cuenta con 3 socios y 1 representante </p>
+      <p>{{ empresa.razon_social }} cuenta con {{ socios_length }} socio{{ socios_length|pluralize:",s" }} y {{ represents|length }} representante{{ represents|length|pluralize:",s" }}</p>
+
       <div class="row w-100" style="background-color: white">
-        <div class="col col-6 perfil-block border-end border-2">
-          <h3>Socios</h3>
-          <div id="socios-pie" style="min-width: 100%;height:300px;"></div>
+        <div class="col perfil-block border-end border-2" style="padding-left: 0;padding-right: 0">
+          <h3 style="padding-left: var(--padding-perfil-block)">Socios</h3>
+          <div id="socios-pie" style="width: 100%;height:300px;"></div>
         </div>
-        <div class="col col-6 perfil-block border-start border-2">
+        <div class="col perfil-block border-start border-2">
           <h3>Representantes</h3>
+          {% for represnt in represents %}
+            <div class="p-3">
+              {{ represnt.apellidosnomb }}<br>{{ represnt.sigladocide }} {{ represnt.nrodocumento }}
+            </div>
+          {% endfor %}
         </div>
         <div class="col col-12 perfil-block border-top border-4">
           <h3>Información Administrativa</h3>
@@ -53,13 +60,15 @@
   <section>
     <div class="container">
       <h3 class="mb-3">Contratos</h3>
-      <p>Corporativo DEA obtuvo 3 contratos por S/40,000.</p>
+      <p>{{ empresa.razon_social }} obtuvo {{ contratos|length }} contrato{{ contratos|length|pluralize:",s" }}{% if contratos|length %} por S/{{ suma_contratos.sum }}{% endif %}.</p>
       <div class="row w-100" style="background-color: white">
-        <div class="col col-6 perfil-block border-end border-2">
-          <h3>Principales Contratantes</h3>
+        <div class="col col perfil-block border-end border-2" style="padding-left: 0;padding-right: 0">
+          <h3 style="padding-left: var(--padding-perfil-block)">Principales Contratantes</h3>
+          <div id="contratantes-bar" style="width: 100%;height:500px;"></div>
         </div>
-        <div class="col col-6 perfil-block border-start border-2">
+        <div class="col col perfil-block border-start border-2">
           <h3>Tipo de Contrato</h3>
+          <div id="tipocontratos-pie" style="width: 100%;height:500px;"></div>
         </div>
         <div class="col col-12 perfil-block border-top border-4">
           <h3>Listado de Contratos</h3>
@@ -87,22 +96,29 @@
 {% block extrajs %}
   <script src="{% static 'project/lib/echarts/echarts.min.js' %}"></script>
   <script>
-    var myChart = echarts.init($('#socios-pie')[0]);
-    // Draw the chart
-    myChart.setOption({
+    let sociosPieChart = echarts.init($('#socios-pie')[0]);
+    sociosPieChart.setOption({
+      grid: {
+        containLabel: true
+      },
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
+        formatter: (params) => {
+          console.log(params)
+          return `
+                ${params.seriesName} <br/><br/>
+                ${params.name}: <b>${params.value}%</b><br/>
+                ${params.data.sigladocide} ${params.data.nrodocumento}<br/>
+                Ingreso: ${params.data.fechaingreso}<br/>
+                `;
+        },
       },
       series: [
         {
-          name: 'Access From',
+          name: 'Acciones',
           type: 'pie',
-          radius: '80%',
-          data: [
-            {value: 54, name: 'Dina'},
-            {value: 35, name: 'Fredy'},
-            {value: 10, name: 'Aldrick'},
-          ],
+          {#radius: '65%',#}
+          data: {{ socios_chart|safe }},
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
@@ -113,8 +129,120 @@
         }
       ]
     });
+
+
+    let contratantesBarChart = echarts.init($('#contratantes-bar')[0]);
+    contratantesBarChart.setOption({
+      grid: {
+        top: 50,
+        bottom: 10,
+        containLabel: true
+      },
+      tooltip: {
+        confine: true,
+        trigger: "item",
+        axisPointer: {
+          type: "shadow"
+        },
+      },
+      dataset: [
+        {
+          source: {{ contratantes_chart|safe }},
+        },
+        {% if contratantes_length %}
+          {
+            transform: {
+              type: 'sort',
+              config: {dimension: 'total', order: 'desc'}
+            }
+          }
+        {% endif %}
+      ],
+      xAxis: {},
+      yAxis: {
+        inverse: true,
+        type: 'category',
+        axisLabel: {
+          interval: 0,
+          rotate: 0,
+          width: '150',
+          overflow: 'break'
+        },
+        max: 3
+      },
+      series: {
+        type: 'bar',
+        encode: {x: 'total', y: 'nomentcont'},
+        datasetIndex: 1
+      }
+    });
+
+
+    let tipocontratoPieChart = echarts.init($('#tipocontratos-pie')[0]);
+    tipocontratoPieChart.setOption({
+      grid: {
+        containLabel: true
+      },
+      legend: {
+        top: '5%',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item',
+        {% comment %}formatter: (params) => {
+          console.log(params)
+          return `
+                ${params.seriesName} <br/><br/>
+                ${params.name}: <b>${params.value}%</b><br/>
+                ${params.data.sigladocide} ${params.data.nrodocumento}<br/>
+                Ingreso: ${params.data.fechaingreso}<br/>
+                `;
+        },{% endcomment %}
+      },
+      series: [
+        {
+          name: 'Tipo de Contrato',
+          type: 'pie',
+          radius: ['50%', '70%'],
+          label: {
+            show: false,
+            position: 'center',
+            overflow: 'break',
+          },
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
+          data: {% if contratos|length %}{{ tipocontratos_chart|safe }}{% else %}[]{% endif %},
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+              borderWidth: 0
+            },
+            label: {
+              width: 300,
+              show: true,
+              fontSize: '35',
+              fontWeight: 'bold',
+              overflow: 'break',
+            },
+            labelLine: {
+              show: false
+            },
+          }
+        }
+      ]
+    });
+
+
+
     window.onresize = function () {
-      myChart.resize();
+      sociosPieChart.resize();
+      contratantesBarChart.resize();
+      tipocontratoPieChart.resize();
     };
   </script>
 {% endblock %}
