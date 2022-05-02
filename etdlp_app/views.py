@@ -40,4 +40,39 @@ def perfil_empresa(request, ruc):
 
         return render(request, 'perfil.html', context)
     except ProveedoresBuscadorUtf.DoesNotExist:
-        return redirect('main_page')
+        return redirect('buscador_perfiles')
+
+
+portada_proveedores = {
+    'title': 'Buscador de Proveedores',
+    'description': 'Contiene información de los proveedores que han adjudicado procedimientos. El proveedor puede ser individual (persona natural o jurídica) o un consorcio. ',
+    'img': 'project/img/img_proveedores.png',
+    'placeholder': 'DNI, RUC o Nombre',
+    'url_resultado': 'resultado_proveedores',
+}
+
+
+def buscador_proveedores(request):
+    context = {
+        **portada_proveedores
+    }
+    return render(request, 'buscador.html', context)
+
+
+def resultado_proveedores(request):
+    query = request.GET.get('q', '')
+    context = {
+        **portada_proveedores,
+        'query': query,
+    }
+    return render(request, 'buscador.html', context)
+
+
+def buscador_perfiles(request):
+    context = {
+        'title': 'Buscador de Perfiles',
+        'description': 'Busca según RUC',
+        'img': 'project/img/img_perfiles.png',
+        'placeholder': 'RUC',
+    }
+    return render(request, 'buscador.html', context)
