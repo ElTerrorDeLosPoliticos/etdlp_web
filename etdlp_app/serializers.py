@@ -3,19 +3,6 @@ from rest_framework import serializers
 from legacy.models import *
 
 
-# class CustomListSerializer(serializers.ListSerializer):
-#     def to_representation(self, data):
-#         iterable = data.all() if isinstance(data, models.Manager) else data
-#         return [
-#             (item.razonsocial_socio if isinstance(self.child, SocioSerializer) else item.id, self.child.to_representation(item)) for item in iterable
-#         ]
-#
-#     @property
-#     def data(self):
-#         ret = super(CustomListSerializer, self).data
-#         return serializers.ReturnDict(ret, serializer=self)
-
-
 class SocioSerializer(serializers.ModelSerializer):
     value = serializers.CharField(source='porcentajeacciones')
     name = serializers.CharField(source='razonsocial_socio')
@@ -24,6 +11,24 @@ class SocioSerializer(serializers.ModelSerializer):
         model = ProveedoresPerfilSociosUtf
         fields = ['razon_social', 'name', 'sigladocide', 'nrodocumento', 'fechaingreso', 'value']
         # list_serializer_class = CustomListSerializer
+
+
+class AdministrativosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProveedoresPerfilOrgAdministrativosCsv
+        fields = ['apellidosnomb', 'sigladocide', 'nrodocumento', 'desccargo', 'desctipoorgano', 'fechaingreso']
+
+
+class GeograficasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProveedoresPerfilInfoGeoUtf
+        fields = ['departamento', 'provincia', 'distrito', 'estado', 'condicion', 'codigoregistro']
+
+
+class ContratoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProveedoresPerfilSeaceUtf
+        fields = ['nomentcont', 'descontprov', 'montoorigen', 'desestcontprov', 'descatobj2', 'codcontprov']
 
 
 class ContratantesCountSerializer(serializers.ModelSerializer):
@@ -41,6 +46,12 @@ class TipoContratoCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProveedoresPerfilSeaceUtf
         fields = ['name', 'value']
+
+
+class SancionesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProveedoresPerfilSancionesUtf
+        fields = ['descripcion', 'motivos', 'fechaini_field', 'fechafin_field', 'meses_sancionado', 'vigente', 'montotexto', 'nrores']
 
 
 class PerfilSerializer(serializers.ModelSerializer):

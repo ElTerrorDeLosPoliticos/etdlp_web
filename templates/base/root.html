@@ -77,30 +77,34 @@
     <script src="{% static 'project/js/scripts.js' %}"></script>
     <script>
       $.extend(true, $.fn.dataTable.defaults, {
+        responsive: true,
+        autoWidth: false,
+        deferRender: true,
+        processing: true,
         dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>\n" +
-            "<'table-responsive'tr>\n" +
-            "<'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-end'p>>",
+          "<'table-responsive'tr>\n" +
+          "<'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-end'p>>",
         language: {
-            processing: `<div class="d-flex justify-content-center align-items-center h-100">
+          processing: `<div class="d-flex justify-content-center align-items-center h-100">
                       <div class="spinner-border text-dark" role="status">
                           <span class="sr-only">Cargando...</span>
                         </div>
                    </div>`,
-            lengthMenu: "Mostrar  _MENU_  registros",
-            zeroRecords: "No se encontraron registros", // luego de filtrado
-            emptyTable: "No hay registros",
-            info: "Mostrando desde _START_ a _END_ de _TOTAL_ registros",
-            infoEmpty: "No hay registros que mostrar",
-            infoFiltered: "(Total: _MAX_ registros)",
-            loadingRecords: "Cargando...",
-            search: "Buscar:",
-            paginate: {
-                previous: '<i class="fa  fa-angle-left mr-2"></i>Anterior',
-                next: 'Siguiente<i class="fa  fa-angle-right ml-2"></i>'
-            }
+          lengthMenu: "Mostrar  _MENU_  registros",
+          zeroRecords: "No se encontraron registros", // luego de filtrado
+          emptyTable: "No hay registros",
+          info: "Mostrando desde _START_ a _END_ de _TOTAL_ registros",
+          infoEmpty: "No hay registros que mostrar",
+          infoFiltered: "(Total: _MAX_ registros)",
+          loadingRecords: "Cargando...",
+          search: "Buscar:",
+          paginate: {
+            previous: '<i class="fa  fa-angle-left mr-2"></i>Anterior',
+            next: 'Siguiente<i class="fa  fa-angle-right ml-2"></i>'
+          }
         },
-    });
-      $(()=>{
+      });
+      $(() => {
 
       })
     </script>

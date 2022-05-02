@@ -48,9 +48,21 @@
         </div>
         <div class="col col-12 perfil-block border-top border-4">
           <h3>Información Administrativa</h3>
+          <div class="row w-100">
+            <div class="table-responsive p-5">
+              <table id="administrativos-table" class="table order-column stripe hover">
+              </table>
+            </div>
+          </div>
         </div>
         <div class="col col-12 perfil-block border-top border-4">
           <h3>Información Geográfica</h3>
+          <div class="row w-100">
+            <div class="table-responsive p-5">
+              <table id="geo-table" class="table order-column stripe hover">
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -58,7 +70,7 @@
   <section>
     <div class="container">
       <h3 class="mb-3">Contratos</h3>
-      <p>{{ empresa.razon_social }} obtuvo {{ contratos|length }} contrato{{ contratos|length|pluralize:",s" }}{% if contratos|length %} por S/{{ suma_contratos.sum }}{% endif %}.</p>
+      <p>{{ empresa.razon_social }} obtuvo {{ contratos_length }} contrato{{ contratos_length|pluralize:",s" }}{% if contratos_length %} por S/{{ suma_contratos.sum }}{% endif %}.</p>
       <div class="row w-100" style="background-color: white">
         <div class="col col perfil-block border-end border-2" style="padding-left: 0;padding-right: 0">
           <h3 style="padding-left: var(--padding-perfil-block)">Principales Contratantes</h3>
@@ -70,6 +82,12 @@
         </div>
         <div class="col col-12 perfil-block border-top border-4">
           <h3>Listado de Contratos</h3>
+          <div class="row w-100">
+            <div class="table-responsive p-5">
+              <table id="contratos-table" class="table order-column stripe hover">
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -80,10 +98,24 @@
       {#      <p>Corporativo DEA obtuvo 3 contratos  por S/40,000.</p>#}
       <div class="row w-100" style="background-color: white">
         <div class="col col-12 perfil-block">
-          <h3>Listado de Sanciones</h3>
+          <h3><span class="fw-normal">Estado:</span> {% if vigentes %}VIGENTE{% else %}NO VIGENTE{% endif %}</h3>
+          <p class="h4 fw-normal">{{ empresa.razon_social }}
+            <br> presenta {{ sanciones_length }} sanci{{ sanciones_length|pluralize:'ón,ones' }}
+            {% if not min_fecha_sanciones == max_fecha_sanciones %}
+              <br> entre {{ min_fecha_sanciones|default:'--' }} y {{ max_fecha_sanciones|default:'--' }}
+            {% else %}
+              <br> el {{ min_fecha_sanciones|default:'--' }}
+            {% endif %}
+          </p>
         </div>
         <div class="col col-12 perfil-block border-top border-4">
           <h3>Listado de Sanciones</h3>
+          <div class="row w-100">
+            <div class="table-responsive p-5">
+              <table id="sanciones-table" class="table order-column stripe hover">
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -94,167 +126,260 @@
 {% block extrajs %}
   <script src="{% static 'project/lib/echarts/echarts.min.js' %}"></script>
   <script>
-    let sociosPieChart = echarts.init($('#socios-pie')[0]);
-    sociosPieChart.setOption({
-      textStyle: {
-        fontFamily: 'poppins'
-      },
-      grid: {
-        containLabel: true
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: (params) => {
-          return `
+    $(() => {
+      let sociosPieChart = echarts.init($('#socios-pie')[0]);
+      sociosPieChart.setOption({
+        textStyle: {
+          fontFamily: 'poppins'
+        },
+        grid: {
+          containLabel: true
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: (params) => {
+            return `
                 ${params.seriesName} <br/><br/>
                 ${params.name}: <b>${params.value}%</b><br/>
                 ${params.data.sigladocide} ${params.data.nrodocumento}<br/>
                 Ingreso: ${params.data.fechaingreso}<br/>
                 `;
+          },
         },
-      },
-      series: [
-        {
-          name: 'Acciones',
-          type: 'pie',
-          {#radius: '65%',#}
-          data: {{ socios_chart|safe }},
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        }
-      ]
-    });
-
-
-    let contratantesBarChart = echarts.init($('#contratantes-bar')[0]);
-    contratantesBarChart.setOption({
-      textStyle: {
-        fontFamily: 'poppins'
-      },
-      grid: {
-        top: 50,
-        bottom: 10,
-        containLabel: true
-      },
-      tooltip: {
-        confine: true,
-        trigger: "item",
-        axisPointer: {
-          type: "shadow"
-        },
-      },
-      dataset: [
-        {
-          source: {{ contratantes_chart|safe }},
-        },
-        {% if contratantes_length %}
+        series: [
           {
-            transform: {
-              type: 'sort',
-              config: {dimension: 'total', order: 'desc'}
+            name: 'Acciones',
+            type: 'pie',
+            {#radius: '65%',#}
+            data: {{ socios_chart|safe }},
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
             }
           }
-        {% endif %}
-      ],
-      xAxis: {
-        name: '# contratos',
-        nameLocation: 'start',
-        nameTextStyle: {
-          fontStyle: 'italic',
-          fontWeight: 'bold',
-        }
-      },
-      yAxis: {
-        inverse: true,
-        type: 'category',
-        axisLabel: {
-          interval: 0,
-          rotate: 0,
-          width: '150',
-          overflow: 'break'
+        ]
+      });
+
+
+      let contratantesBarChart = echarts.init($('#contratantes-bar')[0]);
+      contratantesBarChart.setOption({
+        textStyle: {
+          fontFamily: 'poppins'
         },
-        max: 3
-      },
-      series: {
-        type: 'bar',
-        encode: {x: 'total', y: 'nomentcont'},
-        datasetIndex: 1
-      }
-    });
+        grid: {
+          top: 50,
+          bottom: 10,
+          containLabel: true
+        },
+        tooltip: {
+          confine: true,
+          trigger: "item",
+          axisPointer: {
+            type: "shadow"
+          },
+        },
+        dataset: [
+          {
+            source: {{ contratantes_chart|safe }},
+          },
+          {% if contratantes_length %}
+            {
+              transform: {
+                type: 'sort',
+                config: {dimension: 'total', order: 'desc'}
+              }
+            }
+          {% endif %}
+        ],
+        xAxis: {
+          name: '# contratos',
+          nameLocation: 'start',
+          nameTextStyle: {
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+          }
+        },
+        yAxis: {
+          inverse: true,
+          type: 'category',
+          axisLabel: {
+            interval: 0,
+            rotate: 0,
+            width: '150',
+            overflow: 'break'
+          },
+          max: 3
+        },
+        series: {
+          type: 'bar',
+          encode: {x: 'total', y: 'nomentcont'},
+          datasetIndex: 1
+        }
+      });
 
 
-    let tipocontratoPieChart = echarts.init($('#tipocontratos-pie')[0]);
-    tipocontratoPieChart.setOption({
-      textStyle: {
-        fontFamily: 'poppins'
-      },
-      grid: {
-        containLabel: true
-      },
-      legend: {
-        top: '5%',
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'item',
-        {% comment %}formatter: (params) => {
-          console.log(params)
-          return `
-                ${params.seriesName} <br/><br/>
-                ${params.name}: <b>${params.value}%</b><br/>
-                ${params.data.sigladocide} ${params.data.nrodocumento}<br/>
-                Ingreso: ${params.data.fechaingreso}<br/>
-                `;
-        },{% endcomment %}
-      },
-      series: [
-        {
-          name: 'Tipo de Contrato',
-          type: 'pie',
-          radius: ['50%', '70%'],
-          label: {
-            show: false,
-            position: 'center',
-            overflow: 'break',
-          },
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2
-          },
-          data: {% if contratos|length %}{{ tipocontratos_chart|safe }}{% else %}[]{% endif %},
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
-              borderWidth: 0
-            },
+      let tipocontratoPieChart = echarts.init($('#tipocontratos-pie')[0]);
+      tipocontratoPieChart.setOption({
+        textStyle: {
+          fontFamily: 'poppins'
+        },
+        grid: {
+          containLabel: true
+        },
+        legend: {
+          top: '5%',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+        },
+        series: [
+          {
+            name: 'Tipo de Contrato',
+            type: 'pie',
+            radius: ['50%', '70%'],
             label: {
-              width: 300,
-              show: true,
-              fontSize: '35',
-              fontWeight: 'bold',
+              show: false,
+              position: 'center',
               overflow: 'break',
             },
-            labelLine: {
-              show: false
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
             },
+            data: {% if contratos_length %}{{ tipocontratos_chart|safe }}{% else %}[]{% endif %},
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                borderWidth: 0
+              },
+              label: {
+                width: 300,
+                show: true,
+                fontSize: '35',
+                fontWeight: 'bold',
+                overflow: 'break',
+              },
+              labelLine: {
+                show: false
+              },
+            }
           }
+        ]
+      });
+
+
+      window.onresize = function () {
+        sociosPieChart.resize();
+        contratantesBarChart.resize();
+        tipocontratoPieChart.resize();
+      };
+    })
+  </script>
+  <script>
+    $(() => {
+      $('#administrativos-table').DataTable({
+          data: {{ administrativos|safe }},
+          columns: [
+            {data: "apellidosnomb", title: "Nombre y Apellidos", className: "align-middle"},
+            {data: "sigladocide", title: "Documento", className: "align-middle"},
+            {data: "nrodocumento", title: "Número de Documento", className: "align-middle"},
+            {data: "desccargo", title: "Cargo", className: "align-middle"},
+            {data: "desctipoorgano", title: "Órgano", className: "align-middle"},
+            {
+              data: "fechaingreso", title: "Fecha Ingreso", className: "align-middle", render: function (data, type) {
+                if (data) {
+                  let date = moment(data, "DD/MM/YYYY");
+                  return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+                } else {
+                  return (type === 'display') ? '--' : data;
+                }
+              }
+            },
+          ],
         }
-      ]
-    });
-
-
-    window.onresize = function () {
-      sociosPieChart.resize();
-      contratantesBarChart.resize();
-      tipocontratoPieChart.resize();
-    };
+      );
+      $('#geo-table').DataTable({
+          data: {{ geograficas|safe }},
+          columns: [
+            {data: "departamento", title: "Departamento", className: "align-middle"},
+            {data: "provincia", title: "Provincia", className: "align-middle"},
+            {data: "distrito", title: "Distrito", className: "align-middle"},
+            {data: "estado", title: "Estado", className: "align-middle"},
+            {data: "condicion", title: "Condición", className: "align-middle"},
+            {data: "codigoregistro", title: "Código Registro", className: "align-middle"},
+          ],
+        }
+      );
+      $('#contratos-table').DataTable({
+          data: {{ contratos|safe }},
+          columns: [
+            {data: "nomentcont", title: "Entidad Contratante", className: "align-middle"},
+            {data: "descontprov", title: "Descripción Contrato", className: "align-middle"},
+            {
+              data: "montoorigen", title: "Monto", className: "align-middle dt-body-right dt-body-nowrap", render: function (data, type) {
+                if (type === 'display') {
+                  return (data) ? 'S/. ' + data : '--';
+                } else {
+                  return data
+                }
+              }
+            },
+            {data: "desestcontprov", title: "Estado Contrato", className: "align-middle"},
+            {data: "descatobj2", title: "Tipo Contrato", className: "align-middle"},
+            {data: "codcontprov", title: "Código Contrato", className: "align-middle"},
+          ],
+        }
+      );
+      $('#sanciones-table').DataTable({
+          data: {{ sanciones|safe }},
+          columns: [
+            {data: "descripcion", title: "Descripción", className: "align-middle"},
+            {data: "motivos", title: "Motivos", className: "align-middle"},
+            {data: "fechaini_field", title: "Fecha Inicio", className: "align-middle"},
+            {data: "fechafin_field", title: "Fecha Fin", className: "align-middle"},
+            {data: "meses_sancionado", title: "Meses sancionado", className: "align-middle"},
+            {
+              data: "vigente", title: "Vigente", className: "align-middle", render: function (data, type) {
+                if (type === 'display') {
+                  return (data) ? 'Sí' : 'No';
+                } else {
+                  return data
+                }
+              }
+            },
+            {
+              data: "montotexto", title: "Monto", className: "align-middle dt-body-right dt-body-nowrap", render: function (data, type) {
+                if (type === 'display') {
+                  return (data) ? 'S/. ' + data : '--';
+                } else {
+                  return data
+                }
+              }
+            },
+            {data: "nrores", title: "Nro Resolución", className: "align-middle dt-body-right dt-body-nowrap"},
+          ],
+          columnDefs: [
+            {
+              targets: [2, 3], render: function (data, type) {
+                if (data) {
+                  let date = moment(data, "YYYY-MM-DD");
+                  return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+                } else {
+                  return (type === 'display') ? '--' : data;
+                }
+              }
+            }
+          ],
+          order: [2, 'asc']
+        }
+      );
+    })
   </script>
 {% endblock %}

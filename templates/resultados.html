@@ -43,18 +43,6 @@
       <div class="row w-100" style="background-color: white">
         <div class="table-responsive">
           <table id="data" class="table order-column stripe hover">
-            <thead class="thead-light">
-              <tr>
-                <th class=""></th>
-                <th class="">RUC</th>
-                <th class="">Razón Social</th>
-                <th class="">Tipo de Empresa</th>
-                <th class=""># Contrataciones</th>
-                <th class="">Monto Total</th>
-                <th class="">Fecha Min</th>
-                <th class="">Fecha Max</th>
-              </tr>
-            </thead>
           </table>
         </div>
       </div>
@@ -68,11 +56,7 @@
           {% if query %}
             oSearch: {sSearch: "{{ query }}"},
           {% endif %}
-          responsive: true,
-          autoWidth: false,
-          deferRender: true,
           serverSide: true,
-          processing: true,
           ajax: '{% url 'api_perfil-list' %}?format=datatables',
           columns: [
             {
@@ -84,12 +68,12 @@
                 }
               },
             },
-            {data: "ruc", className: "align-middle"},
-            {data: "razon_social", className: "align-middle",},
-            {data: "tipoempresa", className: "align-middle"},
-            {data: "seace_registros", className: "align-middle dt-body-right"},
+            {data: "ruc", title: 'RUC', className: "align-middle"},
+            {data: "razon_social", title: 'Razón Social', className: "align-middle"},
+            {data: "tipoempresa", title: 'Tipo de Empresa', className: "align-middle"},
+            {data: "seace_registros", title: '# Contrataciones', className: "align-middle dt-body-right"},
             {
-              data: "seace_gasto_total", className: "align-middle dt-body-right dt-body-nowrap", render: function (data, type) {
+              data: "seace_gasto_total", title: 'Monto Total',className: "align-middle dt-body-right dt-body-nowrap",   render: function (data, type) {
                 if (type === 'display') {
                   return (data) ? 'S/. ' + data : '--';
                 } else {
@@ -97,8 +81,8 @@
                 }
               }
             },
-            {data: "seace_fecha_min", name: "seace_fecha_min", className: "align-middle dt-body-right dt-body-nowrap"},
-            {data: "seace_fecha_max", className: "align-middle dt-body-right dt-body-nowrap"},
+            {data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap"},
+            {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap" },
           ],
           columnDefs: [
             {
@@ -145,7 +129,7 @@
         url.searchParams.set('q', value);
         window.history.replaceState(null, null, url);
         table.search(value).draw();
-        $("html, body").animate({scrollTop: $('#resultados-section').offset().top -100});
+        $("html, body").animate({scrollTop: $('#resultados-section').offset().top - 100});
       }
 
       $('#search').on('click', buscar)
