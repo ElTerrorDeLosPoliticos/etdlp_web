@@ -51,4 +51,4 @@ class PerfilSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProveedoresBuscadorUtf
-        fields = ['ruc', 'razon_social', 'tipoempresa', 'razon_social', 'seace_registros', 'seace_gasto_total', 'seace_fecha_min', 'seace_fecha_max', 'link']
+        fields = ['ruc', 'razon_social', 'tipoempresa', 'seace_registros', 'seace_gasto_total', 'seace_fecha_min', 'seace_fecha_max', 'link']

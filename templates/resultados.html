@@ -36,7 +36,7 @@
 
     </div>
   </section>
-  <section>
+  <section id="resultados-section">
     <div class="container">
       Resultados
       <p>Puedes ordenar los resultados de manera ascendente o descendente:</p>
@@ -82,7 +82,7 @@
                 } else {
                   return data
                 }
-              }, orderable: false,
+              },
             },
             {data: "ruc", className: "align-middle"},
             {data: "razon_social", className: "align-middle",},
@@ -97,8 +97,8 @@
                 }
               }
             },
-            {data: "seace_fecha_min", className: "align-middle dt-body-right dt-body-nowrap", orderable: false,},
-            {data: "seace_fecha_max", className: "align-middle dt-body-right dt-body-nowrap", orderable: false,},
+            {data: "seace_fecha_min", name: "seace_fecha_min", className: "align-middle dt-body-right dt-body-nowrap"},
+            {data: "seace_fecha_max", className: "align-middle dt-body-right dt-body-nowrap"},
           ],
           columnDefs: [
             {
@@ -122,6 +122,14 @@
                 }
               },
             },
+            {
+              searchable: false,
+              "targets": [0, 3, 4, 5, 6, 7]
+            },
+            {
+              orderable: false,
+              "targets": [0]
+            }
           ],
           order: [1, 'asc'],
         }
@@ -132,15 +140,12 @@
 
       function buscar() {
         let value = $input.val().trim()
-        if (value !== '') {
-          table.search(value).draw();
-        } else {
-
-        }
+        $input.val(value)
         const url = new URL(window.location.href);
         url.searchParams.set('q', value);
         window.history.replaceState(null, null, url);
         table.search(value).draw();
+        $("html, body").animate({scrollTop: $('#resultados-section').offset().top -100});
       }
 
       $('#search').on('click', buscar)
