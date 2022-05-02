@@ -1,3 +1,8 @@
+:root {
+  --bs-body-bg: #f8f8f8;
+  --bs-body-color: #2F333A;
+}
+
 .section-title {
   color: #2C3E5C;
 }
@@ -50,4 +55,36 @@
 
 .input-group-append .input-group-text .btn-link:focus {
   box-shadow: none;
+}
+
+.buscador-portada h1 {
+  color: #2C3E5C
+}
+
+.buscador-portada p {
+  color: #2F333A;
+  max-width: 60%;
+  margin: auto
+}
+
+.table-responsive {
+  position: relative;
+}
+
+div.dataTables_wrapper div.dataTables_processing {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 0;
+  text-align: center;
+  padding: 1em 0;
+  /*background-color: #0e1c2fb3 !important;*/
+  height: 100%;
+}
+
+.table > :not(caption) > * > * {
+   border-bottom-width: 0;
 }
