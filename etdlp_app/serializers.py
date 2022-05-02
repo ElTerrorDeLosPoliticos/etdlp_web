@@ -1,3 +1,4 @@
+from django.urls import reverse
 from rest_framework import serializers
 from legacy.models import *
 
@@ -40,3 +41,14 @@ class TipoContratoCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProveedoresPerfilSeaceUtf
         fields = ['name', 'value']
+
+
+class PerfilSerializer(serializers.ModelSerializer):
+    link = serializers.SerializerMethodField()
+
+    def get_link(self, instance):
+        return reverse('perfil_empresa', kwargs={'ruc': instance.ruc})
+
+    class Meta:
+        model = ProveedoresBuscadorUtf
+        fields = ['ruc', 'razon_social', 'tipoempresa', 'razon_social', 'seace_registros', 'seace_gasto_total', 'seace_fecha_min', 'seace_fecha_max', 'link']

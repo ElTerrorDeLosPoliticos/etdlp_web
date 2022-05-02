@@ -2,30 +2,25 @@
 {% load static %}
 {% block extrastyle %}
   <style>
-    section .portada-img {
-      top: auto;
-      bottom: 0;
-      max-width: 40vw;
-      opacity: 0.5;
+    .dataTables_filter {
+      display: none;
     }
 
   </style>
 {% endblock %}
 {% block body %}
   {#################  PORTADA  ################}
-  <section style="background-image: url('{% static 'project/img/landing.png' %}');background-size: cover; height: 100vh;" id="">
+  <section class="buscador-portada" style="background-image: url('{% static 'project/img/landing.png' %}'); background-size: 100% 100%;height: 500px;" id="">
     <div class="container h-100">
-      <div style=" padding: 300px 0 " class="position-relative h-100">
+      <div style=" padding: 175px 0 " class="position-relative h-100">
         <div class="text-center">
-          <h1 style="color: #2C3E5C">{{ title }}</h1>
+          <h1>{{ title }}</h1>
           <div>
-            <p style="color: #5D616F; max-width: 60%; margin: auto">{{ description }}</p>
+            <p>{{ description }}</p>
           </div>
           <div>
             <div class="input-group" style="max-width: 60%; margin: auto">
-
-
-              <input class="form-control" placeholder="{{ placeholder }}" id="query"/>
+              <input class="form-control" placeholder="{{ placeholder }}" id="query" value="{{ query }}"/>
               <div class="input-group-append">
               <span class="input-group-text" id="basic-addon2">
                   <button tabindex="-1" class="btn btn-link" id="search"> <i
@@ -37,26 +32,115 @@
 
           {#        <button class="btn btn-warning text-white" style="padding: 2px 50px;">Estadísticas <br> Generales</button>#}
         </div>
-        <img class="position-absolute portada-img" src="{% static img %}" alt="">
       </div>
 
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      Resultados
+      <p>Puedes ordenar los resultados de manera ascendente o descendente:</p>
+      <div class="row w-100" style="background-color: white">
+        <div class="table-responsive">
+          <table id="data" class="table order-column stripe hover">
+            <thead class="thead-light">
+              <tr>
+                <th class=""></th>
+                <th class="">RUC</th>
+                <th class="">Razón Social</th>
+                <th class="">Tipo de Empresa</th>
+                <th class=""># Contrataciones</th>
+                <th class="">Monto Total</th>
+                <th class="">Fecha Min</th>
+                <th class="">Fecha Max</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
     </div>
   </section>
 {% endblock %}
 {% block extrajs %}
   <script>
     $(() => {
+      let table = $('#data').DataTable({
+          {% if query %}
+            oSearch: {sSearch: "{{ query }}"},
+          {% endif %}
+          responsive: true,
+          autoWidth: false,
+          deferRender: true,
+          serverSide: true,
+          processing: true,
+          ajax: '{% url 'api_perfil-list' %}?format=datatables',
+          columns: [
+            {
+              data: "link", className: "align-middle", render: function (data, type) {
+                if (type === 'display') {
+                  return '<a target="_blank" href="' + data + '">Ver perfil</a>';
+                } else {
+                  return data
+                }
+              }, orderable: false,
+            },
+            {data: "ruc", className: "align-middle"},
+            {data: "razon_social", className: "align-middle",},
+            {data: "tipoempresa", className: "align-middle"},
+            {data: "seace_registros", className: "align-middle dt-body-right"},
+            {
+              data: "seace_gasto_total", className: "align-middle dt-body-right dt-body-nowrap", render: function (data, type) {
+                if (type === 'display') {
+                  return (data) ? 'S/. ' + data : '--';
+                } else {
+                  return data
+                }
+              }
+            },
+            {data: "seace_fecha_min", className: "align-middle dt-body-right dt-body-nowrap", orderable: false,},
+            {data: "seace_fecha_max", className: "align-middle dt-body-right dt-body-nowrap", orderable: false,},
+          ],
+          columnDefs: [
+            {
+              targets: [1, 2, 3, 4],
+              render: function (data, type) {
+                if (type === 'display') {
+                  return (data) ? data : '--';
+                } else {
+                  return data
+                }
+              },
+            },
+            {
+              targets: [6, 7],
+              render: function (data, type) {
+                if (data) {
+                  let date = moment(data, "YYYY-MM-DD");
+                  return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+                } else {
+                  return (type === 'display') ? '--' : data;
+                }
+              },
+            },
+          ],
+          order: [1, 'asc'],
+        }
+      );
+
+
       let $input = $('#query')
 
       function buscar() {
-        let value = $input.val()
+        let value = $input.val().trim()
         if (value !== '') {
-          {% if not url_resultado %}
-            window.location.href = '{% url 'perfil_empresa' '__pk__' %}'.replace('__pk__', value);
-          {% else %}
-            window.location.href = `{% url url_resultado %}?q=${value}`;
-          {% endif %}
+          table.search(value).draw();
+        } else {
+
         }
+        const url = new URL(window.location.href);
+        url.searchParams.set('q', value);
+        window.history.replaceState(null, null, url);
+        table.search(value).draw();
       }
 
       $('#search').on('click', buscar)

@@ -63,9 +63,9 @@ def resultado_proveedores(request):
     query = request.GET.get('q', '')
     context = {
         **portada_proveedores,
-        'query': query,
+        'query': query.strip(),
     }
-    return render(request, 'buscador.html', context)
+    return render(request, 'resultados.html', context)
 
 
 def buscador_perfiles(request):

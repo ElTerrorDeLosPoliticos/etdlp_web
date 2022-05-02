@@ -13,13 +13,13 @@
 {% endblock %}
 {% block body %}
   {#################  PORTADA  ################}
-  <section style="background-image: url('{% static 'project/img/landing.png' %}');background-size: cover; height: 100vh;" id="">
+  <section class="buscador-portada" style="background-image: url('{% static 'project/img/landing.png' %}');background-size: cover; height: 100vh;" id="">
     <div class="container h-100">
       <div style=" padding: 300px 0 " class="position-relative h-100">
         <div class="text-center">
-          <h1 style="color: #2C3E5C">{{ title }}</h1>
+          <h1>{{ title }}</h1>
           <div>
-            <p style="color: #5D616F; max-width: 60%; margin: auto">{{ description }}</p>
+            <p>{{ description }}</p>
           </div>
           <div>
             <div class="input-group" style="max-width: 60%; margin: auto">
