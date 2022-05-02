@@ -1,0 +1,68 @@
+{% extends 'base/root.html' %}
+{% load static %}
+{% block extrastyle %}
+  <style>
+    section .portada-img {
+      top: auto;
+      bottom: 0;
+      max-width: 40vw;
+      opacity: 0.5;
+    }
+
+  </style>
+{% endblock %}
+{% block body %}
+  {#################  PORTADA  ################}
+  <section style="background-image: url('{% static 'project/img/landing.png' %}');background-size: cover; height: 100vh;" id="">
+    <div class="container h-100">
+      <div style=" padding: 300px 0 " class="position-relative h-100">
+        <div class="text-center">
+          <h1 style="color: #2C3E5C">{{ title }}</h1>
+          <div>
+            <p style="color: #5D616F; max-width: 60%; margin: auto">{{ description }}</p>
+          </div>
+          <div>
+            <div class="input-group" style="max-width: 60%; margin: auto">
+
+
+              <input class="form-control" placeholder="{{ placeholder }}" id="query" {% if not url_resultado %} maxlength="11" oninput="this.value=this.value.replace(/\D/g,'');"{% endif %}/>
+              <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">
+                  <button tabindex="-1" class="btn btn-link" id="search"> <i
+                      class="fa fa-fw fa-search"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {#        <button class="btn btn-warning text-white" style="padding: 2px 50px;">Estadísticas <br> Generales</button>#}
+        </div>
+        <img class="position-absolute portada-img" src="{% static img %}" alt="">
+      </div>
+
+    </div>
+  </section>
+{% endblock %}
+{% block extrajs %}
+  <script>
+    $(() => {
+      let $input = $('#query')
+
+      function buscar() {
+        let value = $input.val()
+        if (value !== '') {
+          {% if not url_resultado %}
+            window.location.href = '{% url 'perfil_empresa' '__pk__' %}'.replace('__pk__', value);
+          {% else %}
+            window.location.href = `{% url url_resultado %}?q=${value}`;
+          {% endif %}
+        }
+      }
+
+      $('#search').on('click', buscar)
+      $input.on('keyup', e => {
+        if (e.which === 13) buscar()
+      })
+    })
+  </script>
+{% endblock %}

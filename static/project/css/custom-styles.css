@@ -1,6 +1,53 @@
-.section-title{
+.section-title {
   color: #2C3E5C;
 }
-.section-title-dark{
+
+.section-title-dark {
   color: white;
+}
+
+.form-control:focus {
+  border-color: #ced4da;
+  box-shadow: none;
+}
+
+.input-group input, .input-group .input-group-text {
+  border-radius: 20px;
+  border: none
+}
+
+.input-group {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.input-group input {
+  border-right: 0;
+  padding: 0 1.45rem;
+}
+
+.input-group input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #A09F96;
+}
+
+.input-group-append .input-group-text {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+  background-color: white;
+  padding: 0.075rem 0.275rem;
+}
+
+.input-group-append .input-group-text .btn-link {
+  color: #A09F96;
+}
+
+.input-group-append .input-group-text .btn-link:hover {
+  color: black;
+}
+
+.input-group-append .input-group-text .btn-link:focus {
+  box-shadow: none;
 }
