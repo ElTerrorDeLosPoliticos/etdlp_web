@@ -17,14 +17,12 @@
     <div class="container h-100">
       <div style=" padding: 300px 0 " class="position-relative h-100">
         <div class="text-center">
-          <h1>{{ title }}</h1>
-          <div>
-            <p>{{ description }}</p>
+          <h1 class="pb-4">{{ title }}</h1>
+          <div class="pb-5">
+            <p style="font-size: 18px;">{{ description }}</p>
           </div>
           <div>
             <div class="input-group" style="max-width: 60%; margin: auto">
-
-
               <input class="form-control" placeholder="{{ placeholder }}" id="query" {% if not url_resultado %} maxlength="11" oninput="this.value=this.value.replace(/\D/g,'');"{% endif %}/>
               <div class="input-group-append">
               <span class="input-group-text" id="basic-addon2">
