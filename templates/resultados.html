@@ -59,21 +59,28 @@
           serverSide: true,
           ajax: '{% url 'api_perfil-list' %}?format=datatables',
           columns: [
+            {data: "link", className: "d-none",},
             {
-              data: "link", className: "align-middle", render: function (data, type) {
+              data: "ruc", title: 'RUC', className: "align-middle", render: function (data, type, row) {
+                console.log(row)
                 if (type === 'display') {
-                  return '<a target="_blank" href="' + data + '">Ver perfil</a>';
+                  return `<a target="_blank" href="${row.link}">${data}</a>`;
                 } else {
                   return data
                 }
-              },
+              }
             },
-            {data: "ruc", title: 'RUC', className: "align-middle"},
             {data: "razon_social", title: 'Razón Social', className: "align-middle"},
             {data: "tipoempresa", title: 'Tipo de Empresa', className: "align-middle"},
-            {data: "seace_registros", title: '# Contrataciones', className: "align-middle dt-body-right"},
+            {data: "organos_nomb_apell", title: 'Administrativos', className: "align-middle"},
+            {data: "organos_nrodocumento", title: 'Administrativos', className: "align-middle d-none"},
+            {data: "representantes_nomb_apell", title: 'Representantes', className: "align-middle"},
+            {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle d-none"},
+            {data: "socios", title: 'Socios', className: "align-middle"},
+            {data: "socios_dni", title: 'Socios', className: "align-middle d-none"},
+            {data: "seace_registros", title: '# Contratos', className: "align-middle dt-body-right"},
             {
-              data: "seace_gasto_total", title: 'Monto Total',className: "align-middle dt-body-right dt-body-nowrap",   render: function (data, type) {
+              data: "seace_gasto_total", title: 'Monto Total', className: "align-middle dt-body-right dt-body-nowrap", render: function (data, type) {
                 if (type === 'display') {
                   return (data) ? 'S/. ' + data : '--';
                 } else {
@@ -82,11 +89,11 @@
               }
             },
             {data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap"},
-            {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap" },
+            {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap"},
           ],
           columnDefs: [
             {
-              targets: [1, 2, 3, 4],
+              targets: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               render: function (data, type) {
                 if (type === 'display') {
                   return (data) ? data : '--';
@@ -96,7 +103,7 @@
               },
             },
             {
-              targets: [6, 7],
+              targets: [-1, -2],
               render: function (data, type) {
                 if (data) {
                   let date = moment(data, "YYYY-MM-DD");
