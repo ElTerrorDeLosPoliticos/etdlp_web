@@ -285,6 +285,11 @@
   <script>
     $(() => {
       $('#administrativos-table').DataTable({
+          buttons: [{
+            extend: 'excel',
+            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+            filename: `*_administrativa_{{ empresa.ruc }}`,
+          }],
           data: {{ administrativos|safe }},
           columns: [
             {data: "apellidosnomb", title: "Nombre y Apellidos", className: "align-middle"},
@@ -306,6 +311,11 @@
         }
       );
       $('#geo-table').DataTable({
+          buttons: [{
+            extend: 'excel',
+            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+            filename: `*_geografica_{{ empresa.ruc }}`,
+          }],
           data: {{ geograficas|safe }},
           columns: [
             {data: "departamento", title: "Departamento", className: "align-middle"},
@@ -318,6 +328,11 @@
         }
       );
       $('#contratos-table').DataTable({
+          buttons: [{
+            extend: 'excel',
+            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+            filename: `*_contratos_{{ empresa.ruc }}`,
+          }],
           data: {{ contratos|safe }},
           columns: [
             {data: "nomentcont", title: "Entidad Contratante", className: "align-middle"},
@@ -338,6 +353,11 @@
         }
       );
       $('#sanciones-table').DataTable({
+          buttons: [{
+            extend: 'excel',
+            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+            filename: `*_sanciones_{{ empresa.ruc }}`,
+          }],
           data: {{ sanciones|safe }},
           columns: [
             {data: "descripcion", title: "Descripción", className: "align-middle"},

@@ -38,7 +38,7 @@
   </section>
   <section id="resultados-section">
     <div class="container" style="padding: 50px 0">
-      <p style="font-size: 32px; font-weight: 300; padding-bottom: 20px">Resultado de busqueda</p>
+      <p style="font-size: 32px; font-weight: 300; padding-bottom: 20px">Resultado de búsqueda</p>
       <p style="padding-bottom: 20px">Puedes ordenar los resultados de manera ascendente o descendente:</p>
       <div class="row w-100" style="background-color: white">
         <div class="table-responsive">
@@ -52,17 +52,23 @@
 {% block extrajs %}
   <script>
     $(() => {
+      let searched_value = '{{ query|default:'' }}';
+
       let table = $('#data').DataTable({
-          {% if query %}
-            oSearch: {sSearch: "{{ query }}"},
-          {% endif %}
+          buttons: [{
+            extend: 'excel',
+            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+            filename: function () {
+              return `*_proveedores_(${searched_value})`
+            },
+          }],
+          oSearch: {sSearch: searched_value},
           serverSide: true,
           ajax: '{% url 'api_perfil-list' %}?format=datatables',
           columns: [
             {data: "link", className: "d-none",},
             {
               data: "ruc", title: 'RUC', className: "align-middle", render: function (data, type, row) {
-                console.log(row)
                 if (type === 'display') {
                   return `<a target="_blank" href="${row.link}">${data}</a>`;
                 } else {
@@ -136,6 +142,7 @@
         url.searchParams.set('q', value);
         window.history.replaceState(null, null, url);
         table.search(value).draw();
+        searched_value = value
         $("html, body").animate({scrollTop: $('#resultados-section').offset().top - 100});
       }
 

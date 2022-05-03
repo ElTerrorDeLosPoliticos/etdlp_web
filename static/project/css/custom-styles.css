@@ -99,19 +99,29 @@ div.dataTables_wrapper div.dataTables_processing {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
-.btn-etdlp-dark{
-  background-color: #fff;
-  color: #2C3E5C;
-}
-.btn-etdlp.btn-etdlp-dark:hover {
-  color: #2C3E5C;
-}
 
 .btn-etdlp:hover {
   color: #fff;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24) inset;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24) inset;
   -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24) inset;
+}
+
+.btn-etdlp:focus {
+  box-shadow: 0 0 0 0.25rem rgb(44 62 92 / 25%);
+}
+
+.btn-etdlp-dark {
+  background-color: #fff;
+  color: #2C3E5C;
+}
+
+.btn-etdlp.btn-etdlp-dark:hover {
+  color: #2C3E5C;
+}
+
+.btn-etdlp.btn-etdlp-dark:focus {
+  box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%);
 }
 
 table.dataTable thead th {
@@ -126,7 +136,30 @@ table.dataTable thead th {
   font-size: 14px;
 }
 
+button.dt-button.buttons-excel {
+  background: rgb(255 255 255 / 0%);
+  color: var(--bs-success);
+  border: 2px solid var(--bs-success);
+  padding: 5px 30px;
+  font-weight: 500;
+  border-radius: 20px;
+}
+
+button.dt-button.buttons-excel:hover {
+  border: 2px solid var(--bs-success);
+  background: var(--bs-success);
+  color: white;
+}
+
+button.dt-button.buttons-excel:focus {
+  border: 1px solid #d1f7d3;
+  background: linear-gradient(to bottom, #d1f7d3 0%, var(--bs-success) 100%);
+}
 
 table.dataTable.no-footer {
   border-bottom: 1px solid rgb(17 17 17 / 30%);
+}
+
+div.dt-buttons {
+  float: right;
 }
