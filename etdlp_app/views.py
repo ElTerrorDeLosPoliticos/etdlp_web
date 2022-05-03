@@ -1,6 +1,7 @@
 from django.db.models import Count, Q, Sum
 from django.shortcuts import render, redirect
-from etdlp_app.serializers import *
+from legacy import models as legacy_models
+from etdlp_app.serializers import SocioSerializer, AdministrativosSerializer, GeograficasSerializer, ContratoSerializer, ContratantesCountSerializer, TipoContratoCountSerializer, SancionesSerializer, PerfilSerializer
 import json
 
 
@@ -11,20 +12,20 @@ def main_page(request):
 
 def perfil_empresa(request, ruc):
     try:
-        empresa = ProveedoresBuscadorUtf.objects.get(ruc=ruc)
+        empresa = legacy_models.ProveedoresBuscadorUtf.objects.get(ruc=ruc)
         context = {
             'empresa': empresa,
         }
 
-        socios = ProveedoresPerfilSociosUtf.objects.filter(ruc=ruc)
+        socios = legacy_models.ProveedoresPerfilSociosUtf.objects.filter(ruc=ruc)
         socios_serial = SocioSerializer(socios, many=True).data
 
-        represents = ProveedoresPerfilRepresentantesUtf.objects.filter(ruc=ruc)
+        represents = legacy_models.ProveedoresPerfilRepresentantesUtf.objects.filter(ruc=ruc)
 
-        administrativos = ProveedoresPerfilOrgAdministrativosCsv.objects.filter(ruc=ruc)
+        administrativos = legacy_models.ProveedoresPerfilOrgAdministrativosCsv.objects.filter(ruc=ruc)
         administrativos_serial = AdministrativosSerializer(administrativos, many=True).data
 
-        geograficas = ProveedoresPerfilInfoGeoUtf.objects.filter(numeroruc=ruc)
+        geograficas = legacy_models.ProveedoresPerfilInfoGeoUtf.objects.filter(numeroruc=ruc)
         geograficas_serial = GeograficasSerializer(geograficas, many=True).data
 
         context.update({
@@ -38,13 +39,13 @@ def perfil_empresa(request, ruc):
             'geograficas': json.dumps(geograficas_serial),
         })
 
-        contratantes_count = ProveedoresPerfilSeaceUtf.objects.filter(ruc=ruc).values('nomentcont').annotate(total=Count('razon_social', filter=Q(ruc=ruc)))
+        contratantes_count = legacy_models.ProveedoresPerfilSeaceUtf.objects.filter(ruc=ruc).values('nomentcont').annotate(total=Count('razon_social', filter=Q(ruc=ruc)))
         contratantes_count_serial = ContratantesCountSerializer(contratantes_count, many=True).data
 
-        contratos = ProveedoresPerfilSeaceUtf.objects.filter(ruc=ruc)
+        contratos = legacy_models.ProveedoresPerfilSeaceUtf.objects.filter(ruc=ruc)
         contratos_serial = ContratoSerializer(contratos, many=True).data
 
-        tipocontratos_count = ProveedoresPerfilSeaceUtf.objects.values('descatobj2').annotate(value=Count('descatobj2', filter=Q(ruc=ruc))).order_by('descatobj2')
+        tipocontratos_count = legacy_models.ProveedoresPerfilSeaceUtf.objects.values('descatobj2').annotate(value=Count('descatobj2', filter=Q(ruc=ruc))).order_by('descatobj2')
         tipocontratos_count_serial = TipoContratoCountSerializer(tipocontratos_count, many=True).data
 
         context.update({
@@ -59,7 +60,7 @@ def perfil_empresa(request, ruc):
             'contratos': json.dumps(contratos_serial),
         })
 
-        sanciones = ProveedoresPerfilSancionesUtf.objects.filter(numeroruc=ruc)
+        sanciones = legacy_models.ProveedoresPerfilSancionesUtf.objects.filter(numeroruc=ruc)
         sanciones_serial = SancionesSerializer(sanciones, many=True).data
 
         min_fecha = sanciones.order_by('fechaini_field').first().fechaini_field if sanciones else ''
@@ -74,7 +75,7 @@ def perfil_empresa(request, ruc):
             'max_fecha_sanciones': max_fecha[:4],
         })
         return render(request, 'perfil.html', context)
-    except ProveedoresBuscadorUtf.DoesNotExist:
+    except legacy_models.ProveedoresBuscadorUtf.DoesNotExist:
         return redirect('buscador_perfiles')
 
 

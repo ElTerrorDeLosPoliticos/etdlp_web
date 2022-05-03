@@ -1,7 +1,5 @@
-import inspect
-
 from django.contrib import admin
-from legacy import models as legacy_models
+# from legacy.models import PlanillaBuscadorUtf
 
 
 # Register your models here.
@@ -24,8 +22,15 @@ class ReadOnlyAdminDisplay(admin.ModelAdmin):
         super(ReadOnlyAdminDisplay, self).__init__(model, admin_site)
 
 
-classes = [obj
-           for _, obj in inspect.getmembers(legacy_models, predicate=inspect.isclass)]
-
-for class_ in classes:
-    admin.site.register(class_, ReadOnlyAdminDisplay)
+# admin.site.register(PlanillaBuscadorUtf, ReadOnlyAdminDisplay)
+# admin.site.register(PlanillaPerfilUtf, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresBuscadorUtf, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresPerfilInfoGeoUtf, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresPerfilOrgAdministrativosCsv, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresPerfilRepresentantesUtf, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresPerfilSancionesUtf, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresPerfilSeaceUtf, ReadOnlyAdminDisplay)
+# admin.site.register(ProveedoresPerfilSociosUtf, ReadOnlyAdminDisplay)
+# admin.site.register(VisitantesBuscadorUtf, ReadOnlyAdminDisplay)
+# admin.site.register(VisitantesEmpresariosUtf, ReadOnlyAdminDisplay)
+# admin.site.register(VisitantesPerfilUtf, ReadOnlyAdminDisplay)

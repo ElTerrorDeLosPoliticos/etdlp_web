@@ -1,6 +1,6 @@
 from django.urls import reverse
 from rest_framework import serializers
-from legacy.models import *
+from legacy import models as legacy_models
 
 
 class SocioSerializer(serializers.ModelSerializer):
@@ -8,26 +8,26 @@ class SocioSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='razonsocial_socio')
 
     class Meta:
-        model = ProveedoresPerfilSociosUtf
+        model = legacy_models.ProveedoresPerfilSociosUtf
         fields = ['razon_social', 'name', 'sigladocide', 'nrodocumento', 'fechaingreso', 'value']
         # list_serializer_class = CustomListSerializer
 
 
 class AdministrativosSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProveedoresPerfilOrgAdministrativosCsv
+        model = legacy_models.ProveedoresPerfilOrgAdministrativosCsv
         fields = ['apellidosnomb', 'sigladocide', 'nrodocumento', 'desccargo', 'desctipoorgano', 'fechaingreso']
 
 
 class GeograficasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProveedoresPerfilInfoGeoUtf
+        model = legacy_models.ProveedoresPerfilInfoGeoUtf
         fields = ['departamento', 'provincia', 'distrito', 'estado', 'condicion', 'codigoregistro']
 
 
 class ContratoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProveedoresPerfilSeaceUtf
+        model = legacy_models.ProveedoresPerfilSeaceUtf
         fields = ['nomentcont', 'descontprov', 'montoorigen', 'desestcontprov', 'descatobj2', 'codcontprov']
 
 
@@ -35,7 +35,7 @@ class ContratantesCountSerializer(serializers.ModelSerializer):
     total = serializers.IntegerField()
 
     class Meta:
-        model = ProveedoresPerfilSeaceUtf
+        model = legacy_models.ProveedoresPerfilSeaceUtf
         fields = ['nomentcont', 'total']
 
 
@@ -44,13 +44,13 @@ class TipoContratoCountSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='descatobj2')
 
     class Meta:
-        model = ProveedoresPerfilSeaceUtf
+        model = legacy_models.ProveedoresPerfilSeaceUtf
         fields = ['name', 'value']
 
 
 class SancionesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProveedoresPerfilSancionesUtf
+        model = legacy_models.ProveedoresPerfilSancionesUtf
         fields = ['descripcion', 'motivos', 'fechaini_field', 'fechafin_field', 'meses_sancionado', 'vigente', 'montotexto', 'nrores']
 
 
@@ -61,5 +61,5 @@ class PerfilSerializer(serializers.ModelSerializer):
         return reverse('perfil_empresa', kwargs={'ruc': instance.ruc})
 
     class Meta:
-        model = ProveedoresBuscadorUtf
+        model = legacy_models.ProveedoresBuscadorUtf
         fields = '__all__'

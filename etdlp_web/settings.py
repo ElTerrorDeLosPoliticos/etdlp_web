@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zsjpbww&dw^r^c1%1zy*-%u1(vq*!!5=5(r5624chmm6hwlhth
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['elterrordelospolitocosv2.uc.r.appspot.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_datatables',
     # internal apps
-    'etdlp_app',
-    'legacy',
+    'legacy.apps.LegacyConfig',
+    'etdlp_app.apps.EtdlpAppConfig',
+    'etdlp_init.apps.EtdlpInitConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,8 +137,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'deploy/static')
 if os.getenv('GAE_APPLICATION', None):
     GS_FILE_OVERWRITE = True
     DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    STATIC_URL = 'https://storage.googleapis.com/apptesis-static/static/'
-    MEDIA_URL = 'https://storage.googleapis.com/apptesis-333708.appspot.com/media'
+    STATIC_URL = 'https://storage.googleapis.com/elterrordelospolitocosv2.appspot.com/static/'
+    MEDIA_URL = ''
 else:
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
@@ -160,5 +161,5 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'etdlp_app.Usuario'
+AUTH_USER_MODEL = 'etdlp_init.Usuario'
 LOGIN_URL = '/usuarios/login'
