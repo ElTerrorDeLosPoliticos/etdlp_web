@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# import os
+# from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
@@ -20,3 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('etdlp_app.urls')),
 ]
+
+# if not os.getenv('GAE_APPLICATION'):
+#     from .settings import MEDIA_ROOT, MEDIA_URL
+#
+#     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
