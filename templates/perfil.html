@@ -70,7 +70,7 @@
   <section>
     <div class="container">
       <h3 class="mb-3">Contratos</h3>
-      <p>{{ empresa.razon_social }} obtuvo {{ contratos_length }} contrato{{ contratos_length|pluralize:",s" }}{% if contratos_length %} por S/{{ suma_contratos.sum }}{% endif %}.</p>
+      <p>{{ empresa.razon_social }} obtuvo {{ contratos_length }} contrato{{ contratos_length|pluralize:",s" }}{% if contratos_length %} por S/{{ suma_contratos.sum|floatformat:2 }}{% endif %}.</p>
       <div class="row w-100" style="background-color: white">
         <div class="col col perfil-block border-end border-2" style="padding-left: 0;padding-right: 0">
           <h3 style="padding-left: var(--padding-perfil-block)">Principales Contratantes</h3>
@@ -98,7 +98,7 @@
       {#      <p>Corporativo DEA obtuvo 3 contratos  por S/40,000.</p>#}
       <div class="row w-100" style="background-color: white">
         <div class="col col-12 perfil-block">
-          <h3><span class="fw-normal">Estado:</span> {% if vigentes %}VIGENTE{% else %}NO VIGENTE{% endif %}</h3>
+          <h3 class="mb-5"><span class="fw-normal">¿Tiene sanciones vigentes?:</span> {% if vigentes %}VIGENTE{% else %}NO VIGENTE{% endif %}</h3>
           <p class="h4 fw-normal">{{ empresa.razon_social }}
             <br> presenta {{ sanciones_length }} sanci{{ sanciones_length|pluralize:'ón,ones' }}
             {% if not min_fecha_sanciones == max_fecha_sanciones %}

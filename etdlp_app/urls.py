@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'perfil', view_sets.PerfilesEmpresaViewSet, basename='api_perfil')
 
 buscador_patterns = [
-    path('proveedores', views.buscador_proveedores, name='perfil_empresa'),
+    path('proveedores', views.buscador_proveedores, name='buscador_proveedores'),
     path('perfiles', views.buscador_perfiles, name='buscador_perfiles'),
     path('resultados', views.resultado_proveedores, name='resultado_proveedores'),
 ]
