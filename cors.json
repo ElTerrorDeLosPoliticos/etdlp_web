@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["https://elterrordelospolitocosv2.uc.r.appspot.com/"],
+      "method": ["GET"],
+      "responseHeader": ["Access-Control-Allow-Origin"],
+      "maxAgeSeconds": 5000
+    }
+]
