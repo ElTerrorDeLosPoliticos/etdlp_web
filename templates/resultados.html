@@ -66,7 +66,7 @@
           serverSide: true,
           ajax: '{% url 'api_perfil-list' %}?format=datatables',
           columns: [
-            {data: "link", className: "d-none",},
+            {data: "link", className: "d-none disallow-mark",},
             {
               data: "ruc", title: 'RUC', className: "align-middle", render: function (data, type, row) {
                 if (type === 'display') {
@@ -84,9 +84,9 @@
             {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle d-none"},
             {data: "socios", title: 'Socios', className: "align-middle"},
             {data: "socios_dni", title: 'Socios', className: "align-middle d-none"},
-            {data: "seace_registros", title: '# Contratos', className: "align-middle dt-body-right"},
+            {data: "seace_registros", title: '# Contratos', className: "align-middle dt-body-right disallow-mark"},
             {
-              data: "seace_gasto_total", title: 'Monto Total', className: "align-middle dt-body-right dt-body-nowrap", render: function (data, type) {
+              data: "seace_gasto_total", title: 'Monto Total', className: "align-middle dt-body-right dt-body-nowrap disallow-mark", render: function (data, type) {
                 if (type === 'display') {
                   return (data) ? 'S/. ' + data : '--';
                 } else {
@@ -94,8 +94,8 @@
                 }
               }
             },
-            {data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap"},
-            {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap"},
+            {data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
+            {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
           ],
           columnDefs: [
             {
@@ -121,7 +121,7 @@
             },
             {
               searchable: false,
-              "targets": [0, 3, 4, 5, 6, 7]
+              "targets": [0, 3, -4, -3, -2, -1]
             },
             {
               orderable: false,

@@ -163,3 +163,17 @@ table.dataTable.no-footer {
 div.dt-buttons {
   float: right;
 }
+
+mark {
+  background: yellow;
+  padding: 0;
+  color: inherit;
+  font-weight: 600;
+}
+
+td.disallow-mark mark {
+  background: inherit;
+  font-weight: inherit;
+}
+
+
