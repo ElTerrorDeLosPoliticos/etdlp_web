@@ -23,6 +23,8 @@
               <input class="form-control" placeholder="{{ placeholder }}" id="query" value="{{ query }}"/>
               <div class="input-group-append">
               <span class="input-group-text" id="basic-addon2">
+                <button tabindex="-1" class="btn btn-link text-danger {% if not query %}d-none{% endif %}" id="delete_search"> <i
+                    class="fa fa-fw fa-times"></i></button>
                   <button tabindex="-1" class="btn btn-link" id="search"> <i
                       class="fa fa-fw fa-search"></i></button>
                 </span>
@@ -99,10 +101,20 @@
           ],
           columnDefs: [
             {
-              targets: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+              targets: [1, 2, 3],
               render: function (data, type) {
                 if (type === 'display') {
                   return (data) ? data : '--';
+                } else {
+                  return data
+                }
+              },
+            },
+            {
+              targets: [4, 5, 6, 7, 8, 9],
+              render: function (data, type) {
+                if (type === 'display') {
+                  return (data) ? `${data.split('_._').map((n) => `<li>${n}</li>`).join('')}` : '--';
                 } else {
                   return data
                 }
@@ -147,8 +159,16 @@
       }
 
       $('#search').on('click', buscar)
+      $('#delete_search').on('click', function () {
+        if ($input.val() !== '') {
+          $input.val('')
+          buscar()
+          $('#delete_search').addClass('d-none')
+        }
+      })
       $input.on('keyup', e => {
         if (e.which === 13) buscar()
+        $('#delete_search').toggleClass('d-none',($input.val() === ''))
       })
     })
   </script>

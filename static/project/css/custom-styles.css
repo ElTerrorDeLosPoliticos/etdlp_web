@@ -67,28 +67,6 @@
   margin: auto
 }
 
-.table-responsive {
-  position: relative;
-}
-
-div.dataTables_wrapper div.dataTables_processing {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  margin-left: 0;
-  margin-top: 0;
-  text-align: center;
-  padding: 1em 0;
-  /*background-color: #0e1c2fb3 !important;*/
-  height: 100%;
-}
-
-.table > :not(caption) > * > * {
-  border-bottom-width: 0;
-}
-
 .btn-etdlp {
   padding: 3px 45px;
   background-color: #2C3E5C;
@@ -124,6 +102,28 @@ div.dataTables_wrapper div.dataTables_processing {
   box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%);
 }
 
+.table-responsive {
+  position: relative;
+}
+
+div.dataTables_wrapper div.dataTables_processing {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 0;
+  text-align: center;
+  padding: 1em 0;
+  /*background-color: #0e1c2fb3 !important;*/
+  height: 100%;
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-width: 0;
+}
+
 table.dataTable thead th {
   padding: 0.5rem 18px;
   font-weight: normal;
@@ -134,6 +134,10 @@ table.dataTable thead th {
 
 .table-responsive {
   font-size: 14px;
+}
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid rgb(17 17 17 / 30%);
 }
 
 button.dt-button.buttons-excel {
@@ -154,10 +158,6 @@ button.dt-button.buttons-excel:hover {
 button.dt-button.buttons-excel:focus {
   border: 1px solid #d1f7d3;
   background: linear-gradient(to bottom, #d1f7d3 0%, var(--bs-success) 100%);
-}
-
-table.dataTable.no-footer {
-  border-bottom: 1px solid rgb(17 17 17 / 30%);
 }
 
 div.dt-buttons {
