@@ -135,9 +135,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'deploy/static')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 if os.getenv('GAE_APPLICATION', None):
-    GS_FILE_OVERWRITE = True
-    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    # STATIC
     STATIC_URL = 'https://storage.googleapis.com/elterrordelospolitocosv2.appspot.com/static/'
+    # MEDIA
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_FILE_OVERWRITE = True
+    GS_BUCKET_NAME = 'elterrordelospolitocosv2-media'
+    GS_DEFAULT_ACL = 'publicRead'
     MEDIA_URL = ''
 else:
     STATIC_URL = '/static/'

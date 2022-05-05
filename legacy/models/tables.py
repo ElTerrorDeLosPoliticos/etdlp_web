@@ -287,3 +287,54 @@ class VisitantesPerfilUtf(models.Model):
     class Meta:
         managed = False
         db_table = 'producto_visitantes_perfil_utf'
+
+
+class AnalysisContratosDuranteSancion(models.Model):
+    index = models.BigIntegerField(primary_key=True)
+    ruc = models.BigIntegerField(blank=True, null=True)
+    razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
+    field_contratos_durante_sancion = models.BigIntegerField(db_column='#_contratos_durante_sancion', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
+
+    class Meta:
+        managed = False
+        db_table = 'analysis_contratos_durante_sancion'
+
+
+class AnalysisContratosEmpresasInhabilitadas(models.Model):
+    index = models.BigIntegerField(primary_key=True)
+    unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    fecha = models.TextField(blank=True, null=True)
+    ruc = models.BigIntegerField(blank=True, null=True)
+    razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
+    nomentcont = models.TextField(db_column='nomEntCont', blank=True, null=True)  # Field name made lowercase.
+    descontprov = models.TextField(db_column='desContProv', blank=True, null=True)  # Field name made lowercase.
+    montoorigen = models.FloatField(db_column='montoOrigen', blank=True, null=True)  # Field name made lowercase.
+    desestcontprov = models.TextField(db_column='desEstContProv', blank=True, null=True)  # Field name made lowercase.
+    descatobj2 = models.TextField(db_column='desCatObj2', blank=True, null=True)  # Field name made lowercase.
+    codcontprov = models.TextField(db_column='codContProv', blank=True, null=True)  # Field name made lowercase.
+    sancionado = models.BooleanField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'analysis_contratos_empresas_inhabilitadas'
+
+
+class AnalysisEmpresasSancionadasContratadoras(models.Model):
+    index = models.BigIntegerField(primary_key=True)
+    ruc = models.BigIntegerField(blank=True, null=True)
+    razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
+    a = models.FloatField(db_column='A', blank=True, null=True)  # Field name made lowercase.
+    b = models.FloatField(db_column='B', blank=True, null=True)  # Field name made lowercase.
+    c = models.FloatField(db_column='C', blank=True, null=True)  # Field name made lowercase.
+    d = models.FloatField(db_column='D', blank=True, null=True)  # Field name made lowercase.
+    e = models.FloatField(db_column='E', blank=True, null=True)  # Field name made lowercase.
+    f = models.FloatField(db_column='F', blank=True, null=True)  # Field name made lowercase.
+    g = models.FloatField(db_column='G', blank=True, null=True)  # Field name made lowercase.
+    sanciones = models.FloatField(blank=True, null=True)
+    primera_sancion = models.TextField(blank=True, null=True)
+    monto_ganado = models.BigIntegerField(blank=True, null=True)
+    contratos_ganados = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'analysis_empresas_sancionadas_contratadoras'

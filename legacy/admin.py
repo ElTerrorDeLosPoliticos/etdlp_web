@@ -1,5 +1,9 @@
 from django.contrib import admin
-# from legacy.models import PlanillaBuscadorUtf
+from legacy.models import PlanillaBuscadorUtf, PlanillaPerfilUtf, \
+    ProveedoresBuscadorUtf, ProveedoresPerfilInfoGeoUtf, ProveedoresPerfilOrgAdministrativosCsv, ProveedoresPerfilRepresentantesUtf, \
+    ProveedoresPerfilSancionesUtf, ProveedoresPerfilSeaceUtf, ProveedoresPerfilSociosUtf, \
+    VisitantesBuscadorUtf, VisitantesEmpresariosUtf, VisitantesPerfilUtf, \
+    AnalysisContratosDuranteSancion, AnalysisContratosEmpresasInhabilitadas, AnalysisEmpresasSancionadasContratadoras
 
 
 # Register your models here.
@@ -22,15 +26,18 @@ class ReadOnlyAdminDisplay(admin.ModelAdmin):
         super(ReadOnlyAdminDisplay, self).__init__(model, admin_site)
 
 
-# admin.site.register(PlanillaBuscadorUtf, ReadOnlyAdminDisplay)
-# admin.site.register(PlanillaPerfilUtf, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresBuscadorUtf, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresPerfilInfoGeoUtf, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresPerfilOrgAdministrativosCsv, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresPerfilRepresentantesUtf, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresPerfilSancionesUtf, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresPerfilSeaceUtf, ReadOnlyAdminDisplay)
-# admin.site.register(ProveedoresPerfilSociosUtf, ReadOnlyAdminDisplay)
-# admin.site.register(VisitantesBuscadorUtf, ReadOnlyAdminDisplay)
-# admin.site.register(VisitantesEmpresariosUtf, ReadOnlyAdminDisplay)
-# admin.site.register(VisitantesPerfilUtf, ReadOnlyAdminDisplay)
+admin.site.register(PlanillaBuscadorUtf, ReadOnlyAdminDisplay)
+admin.site.register(PlanillaPerfilUtf, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresBuscadorUtf, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresPerfilInfoGeoUtf, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresPerfilOrgAdministrativosCsv, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresPerfilRepresentantesUtf, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresPerfilSancionesUtf, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresPerfilSeaceUtf, ReadOnlyAdminDisplay)
+admin.site.register(ProveedoresPerfilSociosUtf, ReadOnlyAdminDisplay)
+admin.site.register(VisitantesBuscadorUtf, ReadOnlyAdminDisplay)
+admin.site.register(VisitantesEmpresariosUtf, ReadOnlyAdminDisplay)
+admin.site.register(VisitantesPerfilUtf, ReadOnlyAdminDisplay)
+admin.site.register(AnalysisContratosDuranteSancion, ReadOnlyAdminDisplay)
+admin.site.register(AnalysisContratosEmpresasInhabilitadas, ReadOnlyAdminDisplay)
+admin.site.register(AnalysisEmpresasSancionadasContratadoras, ReadOnlyAdminDisplay)
