@@ -57,6 +57,9 @@
       let searched_value = '{{ query|default:'' }}';
 
       let table = $('#data').DataTable({
+          mark: {
+            separateWordSearch: false,
+          },
           buttons: [{
             extend: 'excel',
             text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
@@ -168,7 +171,7 @@
       })
       $input.on('keyup', e => {
         if (e.which === 13) buscar()
-        $('#delete_search').toggleClass('d-none',($input.val() === ''))
+        $('#delete_search').toggleClass('d-none', ($input.val() === ''))
       })
     })
   </script>
