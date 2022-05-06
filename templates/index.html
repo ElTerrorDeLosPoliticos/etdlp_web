@@ -77,8 +77,8 @@
   {#################  CIFRAS  ################}
   <section class="bg-2 bg-white">
     <div style="padding: 100px 0" class="container">
-      <h1 class="text-center section-title">Todo en un solo lugar</h1>
-      <div class="row w-100" style="margin-top:20px ">
+      <h1 class="text-center section-title mb-2">Todo en un solo lugar</h1>
+      <div class="row w-100 m-0">
         {% comment %}<div class="col text-center">
             <div class="number">+200K</div>
             <div class="title">Registros de visitas</div>
@@ -117,104 +117,117 @@
   </section>
   {#################  BUSCADOR  ################}
   <section class="bg-3 position-relative h-auto">
-    <div class="row w-100 position-absolute" style="padding: 100px">
-      <div class="col col-6">
-        <img src="{% static 'project/img/image_1.png' %}" class="" style="width: 80%" alt="">
-      </div>
-      <div class="col col-6">
-        <h1 class="section-title" style="margin: 30px 0">Buscador de Proveedores</h1>
-        <div class="section-description" style="margin-bottom: 20px;">Organizamos millones de puntos de datos en un solo lugar</div>
-        <div>
-          <div class="row">
-            <div class="col col-2 section-item-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-            <div class="col col-10 section-item">
-              <label for="" class="title">Busca por DNI, RUC, Nombre</label>
-              <p class="section-item-description">Encontramos cualquier coincidencia en nuestra base de datos</p>
-            </div>
+    <div class="position-absolute w-100">
+      <div class="container">
+        <div class="row w-100" style="padding: 100px 0">
+          <div class="col col-6">
+            <img src="{% static 'project/img/image_1.png' %}" class="" style="width: 80%" alt="">
           </div>
-          <div class="row">
-            <div class="col col-2 section-item-icon">
-              <i class="fa fa-angle-right"></i>
+          <div class="col col-6">
+            <h1 class="section-title" style="margin: 30px 0">Buscador de Proveedores</h1>
+            <div class="section-description" style="margin-bottom: 20px;">Organizamos millones de puntos de datos en un solo lugar</div>
+            <div>
+              <div class="row">
+                <div class="col col-2 section-item-icon">
+                  <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="col col-10 section-item">
+                  <label for="" class="title">Busca por DNI, RUC, Nombre</label>
+                  <p class="section-item-description">Encontramos cualquier coincidencia en nuestra base de datos</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-2 section-item-icon">
+                  <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="col col-10 section-item">
+                  <label for="" class="title">Datos de distintas fuentes</label>
+                  <p class="description">SEACE, OSCE, TC, PJ.</p>
+                </div>
+              </div>
             </div>
-            <div class="col col-10 section-item">
-              <label for="" class="title">Datos de distintas fuentes</label>
-              <p class="description">SEACE, OSCE, TC, PJ.</p>
-            </div>
+            <a class="btn btn-etdlp mt-4" href="{% url 'buscador_proveedores' %}">Ir al buscador</a>
           </div>
         </div>
-        <a class="btn btn-etdlp mt-4" href="{% url 'buscador_proveedores' %}">Ir al buscador</a>
       </div>
     </div>
-    <img src="{% static 'project/img/1.png' %}" class="h-auto w-100" style="z-index: -1" alt="">
+    <img src="{% static 'project/img/1.png' %}" class="h-auto w-100 " style="z-index: -1" alt="">
+
   </section>
   {#################  PERFIL  ################}
   <section class="position-relative h-auto">
-    <div class="row w-100 position-absolute" style="padding: 70px 100px">
-      <div class="col col-6">
-        <h1 class=" section-title">Perfil de Proveedores</h1>
-        <div class="section-description" style="margin: 20px 0">Con base en la información histórica, armamos perfiles que permiten responder preguntas</div>
-        <div>
-          <div class="row">
-            <div class="col col-2 section-item-icon">
-              <i class="fa fa-angle-right"></i>
+    <div class="position-absolute w-100">
+      <div class="container">
+        <div class="row w-100" style="padding: 70px 0">
+          <div class="col col-6">
+            <h1 class=" section-title">Perfil de Proveedores</h1>
+            <div class="section-description" style="margin: 20px 0">Con base en la información histórica, armamos perfiles que permiten responder preguntas</div>
+            <div>
+              <div class="row">
+                <div class="col col-2 section-item-icon">
+                  <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="col col-10 section-item">
+                  <label for="" class="title">¿Tiene sanciones?</label>
+                  <p class="section-item-description">¿Siguen contratando después de ser sancionados?</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-2 section-item-icon">
+                  <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="col col-10 section-item">
+                  <label for="" class="title">¿Que personas están relacionadas con la empresa?</label>
+                  <p class="description">¿Tienen relación con partidos políticos?</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-2 section-item-icon">
+                  <i class="fa fa-angle-right"></i>
+                </div>
+                <div class="col col-10 section-item">
+                  <label for="" class="title">Lugar de contratación</label>
+                  <p class="description">¿En que departamentos contrata?</p>
+                </div>
+              </div>
             </div>
-            <div class="col col-10 section-item">
-              <label for="" class="title">¿Tiene sanciones?</label>
-              <p class="section-item-description">¿Siguen contratando después de ser sancionados?</p>
-            </div>
+            <a class="btn btn-etdlp mt-3" href="{% url 'buscador_perfiles' %}">Ir a perfiles</a>
           </div>
-          <div class="row">
-            <div class="col col-2 section-item-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-            <div class="col col-10 section-item">
-              <label for="" class="title">¿Que personas están relacionadas con la empresa?</label>
-              <p class="description">¿Tienen relación con partidos políticos?</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col col-2 section-item-icon">
-              <i class="fa fa-angle-right"></i>
-            </div>
-            <div class="col col-10 section-item">
-              <label for="" class="title">Lugar de contratación</label>
-              <p class="description">¿En que departamentos contrata?</p>
-            </div>
-          </div>
-        </div>
-        <a class="btn btn-etdlp mt-3"  href="{% url 'buscador_perfiles' %}">Ir a perfiles</a>
-      </div>
-      {% comment %}<div class="col col-6 position-relative">
+          {% comment %}<div class="col col-6 position-relative">
         <img src="{% static 'project/img/image__2.png' %}" class="position-absolute l-auto" style="left:auto; right: 0;width: 55%" alt="">
 
       </div>{% endcomment %}
+        </div>
+      </div>
     </div>
     <img src="{% static 'project/img/2.png' %}" class="h-auto w-100" style="z-index: -1" alt="">
+
   </section>
   {#################  SANCIONES  ################}
   <section style="background-color: #2C3E5C;margin-top: -1px;">
-    <div class="row w-100" style="padding: 100px; ">
-      <div class="col" style="width: 45%; margin-top: 80px;">
-        <img src="{% static 'project/img/image_3.png' %}" alt="">
-      </div>
-      <div class="col" style="width: 55%;margin-top: 60px;">
-        <h1 class="section-title" style="color: white; padding-bottom: 20px">Empresas que contratan con el estado teniendo sanciones</h1>
-        <div class="section-description" style="color: white;margin-bottom: 30px">Con base en toda la información, podemos construir esta tabla que alerta de probables infracciones</div>
-        <div>
-          <div class="row">
-            <div class="col col-2 section-item-icon">
-              <i class="fa fa-angle-right" style="padding-top: 0"></i>
-            </div>
-            <div class="col col-10 section-item" style="color: white">
-              <p class="description" style="font-weight: 400;">Perfil de cada empresa en la tabla de resultados</p>
+    <div class="container">
+      <div class="row w-100" style="padding: 100px 0; ">
+        <div class="col" style="width: 45%; margin-top: 80px;">
+          <img src="{% static 'project/img/image_3.png' %}" alt="">
+        </div>
+        <div class="col" style="width: 55%;margin-top: 60px;">
+          <h1 class="section-title" style="color: white; padding-bottom: 20px">Empresas que contratan con el estado teniendo sanciones</h1>
+          <div class="section-description" style="color: white;margin-bottom: 30px">Con base en toda la información, podemos construir esta tabla que alerta de probables infracciones</div>
+          <div>
+            <div class="row">
+              <div class="col col-2 section-item-icon">
+                <i class="fa fa-angle-right" style="padding-top: 0"></i>
+              </div>
+              <div class="col col-10 section-item" style="color: white">
+                <p class="description" style="font-weight: 400;">Perfil de cada empresa en la tabla de resultados</p>
+              </div>
             </div>
           </div>
+          <a class="btn btn-etdlp btn-etdlp-dark mt-5" href="{% url 'buscador_perfiles' %}">Ver tablas</a>
         </div>
-        <a class="btn btn-etdlp btn-etdlp-dark mt-5" href="{% url 'buscador_perfiles' %}">Ver tablas</a>
       </div>
     </div>
+
   </section>
 {% endblock %}
 {% block extrajs %}{% endblock %}
