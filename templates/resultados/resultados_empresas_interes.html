@@ -1,0 +1,99 @@
+{% extends 'resultados/resultados_base.html' %}
+
+{% block above_table %}
+  <section style="background-color: white">
+    <div class="container text-center" style="padding: 50px 0">
+      <label style="padding-bottom: 20px;font-weight: 600">Para más detalle de los campos, puede ver el diccionario de datos en el siguiente botón:</label>
+      <br>
+      <a class="btn btn-etdlp bg-danger mb-4" href="#">Ver Diccionario de tablas</a>
+    </div>
+  </section>
+{% endblock %}
+{% block below_table %}{% endblock %}
+<script>
+  let datatable = {
+    {% block filename_excel %}
+      filename: function () {
+        return `*_proveedores_(${searched_value})`
+      },
+    {% endblock %}
+    {% block table_data %}
+      ajax: '{% url 'api_proveedores-list' %}?format=datatables',
+      columns: [
+        {data: "link", className: "d-none disallow-mark",},
+        {
+          data: "ruc", title: 'RUC', className: "align-middle", render: function (data, type, row) {
+            if (type === 'display') {
+              return `<a target="_blank" href="${row.link}">${data}</a>`;
+            } else {
+              return data
+            }
+          }
+        },
+        {data: "razon_social", title: 'Razón Social', className: "align-middle"},
+        {data: "tipoempresa", title: 'Tipo de Empresa', className: "align-middle"},
+        {data: "organos_nomb_apell", title: 'Administrativos', className: "align-middle"},
+        {data: "organos_nrodocumento", title: 'Administrativos', className: "align-middle d-none"},
+        {data: "representantes_nomb_apell", title: 'Representantes', className: "align-middle"},
+        {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle d-none"},
+        {data: "socios", title: 'Socios', className: "align-middle"},
+        {data: "socios_dni", title: 'Socios', className: "align-middle d-none"},
+        {data: "seace_registros", title: '# Contratos', className: "align-middle dt-body-right disallow-mark"},
+        {
+          data: "seace_gasto_total", title: 'Monto Total', className: "align-middle dt-body-right dt-body-nowrap disallow-mark", render: function (data, type) {
+            if (type === 'display') {
+              return (data) ? 'S/. ' + data : '--';
+            } else {
+              return data
+            }
+          }
+        },
+        {data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
+        {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
+      ],
+      columnDefs: [
+        {
+          targets: [1, 2, 3],
+          render: function (data, type) {
+            if (type === 'display') {
+              return (data) ? data : '--';
+            } else {
+              return data
+            }
+          },
+        },
+        {
+          targets: [4, 5, 6, 7, 8, 9],
+          render: function (data, type) {
+            if (type === 'display') {
+              return (data) ? `${data.split('_._').map((n) => `<li>${n}</li>`).join('')}` : '--';
+            } else {
+              return data
+            }
+          },
+        },
+        {
+          targets: [-1, -2],
+          render: function (data, type) {
+            if (data) {
+              let date = moment(data, "YYYY-MM-DD");
+              return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+            } else {
+              return (type === 'display') ? '--' : data;
+            }
+          },
+        },
+        {
+          searchable: false,
+          "targets": [0, 3, -4, -3, -2, -1]
+        },
+        {
+          orderable: false,
+          "targets": [0]
+        }
+      ],
+      order: [1, 'asc'],
+    {% endblock %}
+  }
+</script>
+{% block extrajs_resultados %}{% endblock %}
