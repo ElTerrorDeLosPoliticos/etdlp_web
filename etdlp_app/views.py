@@ -92,7 +92,7 @@ def buscador_proveedores(request):
     context = {
         **portada_proveedores
     }
-    return render(request, 'buscador.html', context)
+    return render(request, 'buscador/buscador_base.html', context)
 
 
 def resultado_proveedores(request):
@@ -101,7 +101,32 @@ def resultado_proveedores(request):
         **portada_proveedores,
         'query': query.strip(),
     }
-    return render(request, 'resultados.html', context)
+    return render(request, 'resultados/resultados_proveedores.html', context)
+
+
+portada_reportes = {
+    'title': 'Buscador de Reportes',
+    'description': 'Desc reportes',
+    'img': 'project/img/img_proveedores.png',
+    'placeholder': 'DNI, RUC o Nombre',
+    'url_resultado': 'resultado_reportes',
+}
+
+
+def buscador_reportes(request):
+    context = {
+        **portada_proveedores
+    }
+    return render(request, 'buscador/buscador_base.html', context)
+
+
+def resultado_reportes(request):
+    query = request.GET.get('q', '')
+    context = {
+        **portada_proveedores,
+        'query': query.strip(),
+    }
+    return render(request, 'resultados/resultados_base.html', context)
 
 
 def buscador_perfiles(request):
@@ -111,4 +136,4 @@ def buscador_perfiles(request):
         'img': 'project/img/img_perfiles.png',
         'placeholder': 'RUC',
     }
-    return render(request, 'buscador.html', context)
+    return render(request, 'buscador/buscador_base.html', context)

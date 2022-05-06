@@ -5,7 +5,7 @@ from etdlp_app.serializers import PerfilSerializer
 from legacy.models import ProveedoresBuscadorUtf
 
 
-class PerfilesEmpresaViewSet(viewsets.ReadOnlyModelViewSet):
+class ProveedoresViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PerfilSerializer
     filter_backends = [DatatablesFilterBackend, ]
 

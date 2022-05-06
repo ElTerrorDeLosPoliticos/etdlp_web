@@ -5,7 +5,7 @@ from rest_framework import routers
 from etdlp_app import view_sets
 
 router = routers.DefaultRouter()
-router.register(r'perfil', view_sets.PerfilesEmpresaViewSet, basename='api_perfil')
+router.register(r'proveedores', view_sets.ProveedoresViewSet, basename='api_proveedores')
 
 buscador_patterns = [
     path('proveedores', views.buscador_proveedores, name='buscador_proveedores'),
