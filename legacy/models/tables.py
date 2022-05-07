@@ -62,7 +62,6 @@ class PlanillaPerfilUtf(models.Model):
 
 class ProveedoresBuscadorUtf(models.Model):
     index = models.BigIntegerField(primary_key=True)
-    unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     id = models.BigIntegerField(blank=True, null=True)
     ruc = models.BigIntegerField(blank=True, null=True)
     razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
@@ -70,27 +69,37 @@ class ProveedoresBuscadorUtf(models.Model):
     seace_registros = models.FloatField(blank=True, null=True)
     seace_gasto_total = models.FloatField(blank=True, null=True)
     seace_gasto_promedio_mensual = models.FloatField(blank=True, null=True)
+    seace_descatobj_keys = models.TextField(db_column='seace_desCatObj_keys', blank=True, null=True)  # Field name made lowercase.
+    seace_descatobj_values = models.TextField(db_column='seace_desCatObj_values', blank=True, null=True)  # Field name made lowercase.
+    seace_desestcontprov_keys = models.TextField(db_column='seace_desEstContProv_keys', blank=True, null=True)  # Field name made lowercase.
+    seace_desestcontprov_values = models.TextField(db_column='seace_desEstContProv_values', blank=True, null=True)  # Field name made lowercase.
     seace_fecha_min = models.TextField(blank=True, null=True)
     seace_fecha_max = models.TextField(blank=True, null=True)
     n_sanciones = models.FloatField(blank=True, null=True)
     meses_sancionado = models.FloatField(blank=True, null=True)
+    seace_meses_activo = models.FloatField(blank=True, null=True)
+    n_organos = models.FloatField(blank=True, null=True)
     organos_nomb_apell = models.TextField(blank=True, null=True)
     organos_nrodocumento = models.TextField(db_column='organos_nroDocumento', blank=True, null=True)  # Field name made lowercase.
+    clc = models.FloatField(blank=True, null=True)
+    cmc = models.FloatField(blank=True, null=True)
     representantes_nomb_apell = models.TextField(blank=True, null=True)
     representantes_nrodocumento = models.TextField(db_column='representantes_nroDocumento', blank=True, null=True)  # Field name made lowercase.
+    n_socios = models.FloatField(blank=True, null=True)
     socios = models.TextField(blank=True, null=True)
+    fecha_ingreso_socio = models.TextField(blank=True, null=True)
     socios_dni = models.TextField(blank=True, null=True)
+    # field_acciones = models.TextField(db_column='%_acciones', blank=True, null=True)  # Field renamed to remove unsuitable characters. Field renamed because it started with '_'.
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_buscador_utf'
+        db_table = 'analysis_proveedores_buscador_hot_fix'
 
 
 class ProveedoresPerfilInfoGeoUtf(models.Model):
     index = models.BigIntegerField(primary_key=True)
-    unnamed_0_1 = models.BigIntegerField(db_column='Unnamed: 0.1', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    numeroruc = models.BigIntegerField(db_column='numeroRuc', blank=True, null=True)  # Field name made lowercase.
+    numeroruc = models.FloatField(db_column='ruc', blank=True, null=True)
     razonsocial = models.TextField(db_column='razonSocial', blank=True, null=True)  # Field name made lowercase.
     tipoempresa = models.TextField(db_column='tipoEmpresa', blank=True, null=True)  # Field name made lowercase.
     departamento = models.TextField(blank=True, null=True)
@@ -104,7 +113,7 @@ class ProveedoresPerfilInfoGeoUtf(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_perfil_info_geo_utf'
+        db_table = 'analysis_proveedores_perfil_info_geo_hot_fix'
 
 
 class ProveedoresPerfilOrgAdministrativosCsv(models.Model):
@@ -114,36 +123,34 @@ class ProveedoresPerfilOrgAdministrativosCsv(models.Model):
     razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
     apellidosnomb = models.TextField(db_column='apellidosNomb', blank=True, null=True)  # Field name made lowercase.
     sigladocide = models.TextField(db_column='siglaDocIde', blank=True, null=True)  # Field name made lowercase.
-    nrodocumento = models.BigIntegerField(db_column='nroDocumento', blank=True, null=True)  # Field name made lowercase.
+    nrodocumento = models.TextField(db_column='nroDocumento', blank=True, null=True)  # Field name made lowercase.
     desccargo = models.TextField(db_column='descCargo', blank=True, null=True)  # Field name made lowercase.
     desctipoorgano = models.TextField(db_column='descTipoOrgano', blank=True, null=True)  # Field name made lowercase.
     fechaingreso = models.TextField(db_column='fechaIngreso', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_perfil_org_administrativos.csv'
+        db_table = 'analysis_proveedores_perfil_org_administrativos_hot_fix'
 
 
 class ProveedoresPerfilRepresentantesUtf(models.Model):
     index = models.BigIntegerField(primary_key=True)
-    unnamed_0_1 = models.BigIntegerField(db_column='Unnamed: 0.1', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     ruc = models.BigIntegerField(blank=True, null=True)
     razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
     apellidosnomb = models.TextField(db_column='apellidosNomb', blank=True, null=True)  # Field name made lowercase.
     sigladocide = models.TextField(db_column='siglaDocIde', blank=True, null=True)  # Field name made lowercase.
-    nrodocumento = models.BigIntegerField(db_column='nroDocumento', blank=True, null=True)  # Field name made lowercase.
+    nrodocumento = models.TextField(db_column='nroDocumento', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_perfil_representantes_utf'
+        db_table = 'analysis_proveedores_perfil_representantes_hot_fix'
 
 
 class ProveedoresPerfilSancionesUtf(models.Model):
     index = models.BigIntegerField(primary_key=True)
-    unnamed_0_1 = models.BigIntegerField(db_column='Unnamed: 0.1', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    numeroruc = models.BigIntegerField(db_column='numeroRuc', blank=True, null=True)  # Field name made lowercase.
+    numeroruc = models.BigIntegerField(db_column='ruc', blank=True, null=True)
     razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
     descripcion = models.TextField(blank=True, null=True)
     idscausales = models.BigIntegerField(db_column='idsCausales', blank=True, null=True)  # Field name made lowercase.
@@ -159,12 +166,11 @@ class ProveedoresPerfilSancionesUtf(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_perfil_sanciones_utf'
+        db_table = 'analysis_proveedores_perfil_sanciones_hot_fix'
 
 
 class ProveedoresPerfilSeaceUtf(models.Model):
     index = models.BigIntegerField(primary_key=True)
-    unnamed_0_1 = models.BigIntegerField(db_column='Unnamed: 0.1', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     fecha = models.TextField(blank=True, null=True)
     ruc = models.BigIntegerField(blank=True, null=True)
@@ -178,24 +184,23 @@ class ProveedoresPerfilSeaceUtf(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_perfil_seace_utf'
+        db_table = 'analysis_proveedores_perfil_seace_hot_fix'
 
 
 class ProveedoresPerfilSociosUtf(models.Model):
     index = models.BigIntegerField(primary_key=True)
-    unnamed_0_1 = models.BigIntegerField(db_column='Unnamed: 0.1', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     unnamed_0 = models.BigIntegerField(db_column='Unnamed: 0', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     ruc = models.BigIntegerField(blank=True, null=True)
     razon_social = models.TextField(db_column='Razon_social', blank=True, null=True)  # Field name made lowercase.
-    razonsocial_socio = models.TextField(db_column='razonSocial', blank=True, null=True)  # Field name made lowercase.
+    razonsocial_socio = models.TextField(db_column='Razon_social_socio', blank=True, null=True)  # Field name made lowercase.
     sigladocide = models.TextField(db_column='siglaDocIde', blank=True, null=True)  # Field name made lowercase.
-    nrodocumento = models.BigIntegerField(db_column='nroDocumento', blank=True, null=True)  # Field name made lowercase.
+    nrodocumento = models.TextField(db_column='nroDocumento', blank=True, null=True)  # Field name made lowercase.
     fechaingreso = models.TextField(db_column='fechaIngreso', blank=True, null=True)  # Field name made lowercase.
     porcentajeacciones = models.FloatField(db_column='porcentajeAcciones', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'producto_proveedores_perfil_socios_utf'
+        db_table = 'analysis_proveedores_perfil_socios_hot_fix'
 
 
 class VisitantesBuscadorUtf(models.Model):
