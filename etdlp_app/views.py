@@ -80,7 +80,7 @@ def perfil_empresa(request, ruc):
         })
         return render(request, 'perfil.html', context)
     except legacy_models.ProveedoresBuscadorUtf.DoesNotExist:
-        messages.error(request, 'No se encontró el perfil de '+ruc)
+        messages.error(request, 'No se encontró el perfil de ' + ruc)
         return redirect('buscador_perfiles')
 
 
@@ -196,10 +196,10 @@ def fuentes(req):
             {
                 'fuente': 'Buscador OSCE',
                 'enlace': 'https://apps.osce.gob.pe/perfilprov-ui/'
-            },{
+            }, {
                 'fuente': 'SEACE',
                 'enlace': 'https://prodapp2.seace.gob.pe/seacebus-uiwd-pub/buscadorPublico/buscadorPublico.xhtml'
-            },{
+            }, {
                 'fuente': 'CONOSCE',
                 'enlace': 'https://bi.seace.gob.pe/pentaho/api/repos/%3Apublic%3Aportal%3Adatosabiertos.html/content?userid=public&password=key'
             },
