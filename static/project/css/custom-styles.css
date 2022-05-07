@@ -3,6 +3,11 @@
   --bs-body-color: #2F333A;
 }
 
+.dropdown-menu[data-bs-popper] {
+  left: auto;
+  right: 0;
+}
+
 .section-title {
   color: #2C3E5C;
 }
