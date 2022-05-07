@@ -1,13 +1,29 @@
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #2C3E5C;" id="mainNav">
   <div class="container">
-    <a class="navbar-brand" style="font-weight: 700" href="{% url 'main_page' %}">ETDLProveedores</a>
+    <a class="navbar-brand" style="font-weight: 700" href="{% url 'main_page' %}">Horus</a>
     <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="">Productos</a></li>
+        {#        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="">Productos</a></li>#}
+        <li class="nav-item dropdown mx-0 mx-lg-1">
+          <a class="nav-link dropdown-toggle py-3 px-0 px-lg-3 rounded" href="#" role="button" id="navbarDropdownMenuLink"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Productos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="{% url 'buscador_proveedores' %}">Buscador</a></li>
+            <li><a class="dropdown-item" href="{% url 'buscador_perfiles' %}">Perfiles</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="{% url 'resultado_reportes' 'contratos' %}">Contratos de interés</a></li>
+            <li><a class="dropdown-item" href="{% url 'resultado_reportes' 'empresas' %}">Empresa de interés</a></li>
+            <li><a class="dropdown-item" href="{% url 'resultado_reportes' 'sanciones' %}">Empresas sancionadas que aún contratan con el estado</a></li>
+          </ul>
+        </li>
         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="">Fuentes de información</a></li>
       </ul>
     </div>

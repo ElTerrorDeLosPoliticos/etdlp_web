@@ -1,39 +1,51 @@
 {% load static %}
 <!-- Footer-->
-    <footer class="footer text-center" style="background-color: #313661">
-      <div class="container">
+<footer class="footer" style="background-color: #2C3E5C">
+  <div class="container">
+    <div class="row">
+      <!-- Footer Location-->
+      <div class="col-lg-5 mb-5 mb-lg-0">
+        <h4 class=" mb-4">HORUS</h4>
+        <img src="{% static 'project/img/icons/horus.png' %}" alt="">
+      </div>
+      <div class="col-lg-7 mb-5 mb-lg-0">
         <div class="row">
-          <!-- Footer Location-->
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Location</h4>
-            <p class="lead mb-0">
-              2215 John Daniel Drive
-              <br/>
-              Clark, MO 65243
-            </p>
-          </div>
           <!-- Footer Social Icons-->
           <div class="col-lg-4 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Around the Web</h4>
-            <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
+            <h6 class="mb-4">Productos</h6>
+            <div class="mb-3"><a class="text-white" style="text-decoration: none" href="{% url 'buscador_proveedores' %}">Buscador</a></div>
+            <div class="mb-3"><a class="text-white" style="text-decoration: none" href="{% url 'buscador_perfiles' %}">Perfiles</a></div>
+            <div class="mb-3"><a class="text-white" style="text-decoration: none" href="{% url 'resultado_reportes' 'contratos' %}">Contratos de Interés</a></div>
+
+
+            {% comment %}<a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
             <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
             <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-            <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+            <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>{% endcomment %}
           </div>
           <!-- Footer About Text-->
           <div class="col-lg-4">
-            <h4 class="text-uppercase mb-4">About Freelancer</h4>
-            <p class="lead mb-0">
-              Freelance is a free to use, MIT licensed Bootstrap theme created by
-              <a href="http://startbootstrap.com">Start Bootstrap</a>
-              .
-            </p>
+            <h6 class="mb-4" style="color: #2C3E5C">Productos</h6>
+            <div class="mb-3"><a class="text-white" style="text-decoration: none" href="{% url 'resultado_reportes' 'empresas' %}">Empresas de interés</a></div>
+            <div class="mb-3"><a class="text-white" style="text-decoration: none" href="{% url 'resultado_reportes' 'sanciones' %}">Empresas sancionadas que aún contratan con el estado</a></div>
+
+          </div>
+          <!-- Footer About Text-->
+          <div class="col-lg-4">
+            <h6 class=" mb-4">Nosotros</h6>
+            <div class="mb-3"><a class="text-white" style="text-decoration: none" href="">Fuentes de información</a></div>
+
           </div>
         </div>
-      </div>
-    </footer>
 
-    <!-- Copyright Section-->
-    <div class="copyright py-4 text-center text-white">
-      <div class="container"><small>Copyright &copy; Your Website 2022</small></div>
+      </div>
+
     </div>
+  </div>
+</footer>
+
+{% comment %}
+<!-- Copyright Section-->
+<div class="copyright py-4 text-center text-white">
+  <div class="container"><small>Copyright &copy; Your Website 2022</small></div>
+</div>{% endcomment %}

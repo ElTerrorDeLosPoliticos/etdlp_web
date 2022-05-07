@@ -54,6 +54,7 @@
     }
 
     .bg-5 .card {
+      text-align: start;
       border: none;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
       -webkit-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -91,12 +92,9 @@
       <div class="container h-100">
         <div class="row w-100 h-100">
           <div class="col col-6 my-auto">
-            <h1 style="font-size: 64px; color: #05060A;font-weight: 600; padding-bottom: 46px;margin:0">El Terror de los Proveedores</h1>
-            <p style="color: #5D616F;font-size: 22px; line-height: 26px">Poner cual es nuestro fin, algo asi que tenemos etc.
-              Poner cual es nuestro fin, algo asi que tenemos etc.
-              Poner cual es nuestro fin, algo asi que tenemos etc.
-              Poner cual es nuestro fin, algo asi que tenemos etc.
-              Poner cual es nuestro fin, algo asi que tenemos etc.</p>
+            <h1 style="font-size: 100px; color: #05060A;font-weight: 600; padding-bottom: 46px;margin:0">HORUS</h1>
+            <p style="color: #5D616F;font-size: 22px; line-height: 26px">Todas las bases de datos de proveedores del estado en un solo lugar. (2021-2022)
+            </p>
             {#        <button class="btn btn-warning text-white" style="padding: 2px 50px;">Estadísticas <br> Generales</button>#}
           </div>
         </div>
@@ -235,7 +233,10 @@
   </section>
   {#################  SANCIONES  ################}
   <section class="bg-5" style="background-color: #2C3E5C;margin-top: -1px;">
-    <div class="container">
+    <div class="container text-center" style="padding: 30px 0">
+      <h1 class="section-title" style="color: white; padding: 30px 0">Reportes</h1>
+      <div class="" style="color: white;margin-bottom: 40px">Analizamos 2 millones de contratos, 21 mil empresas,</div>
+
       <div class="row">
         <div class="col">
           <div class="card h-100">
@@ -259,7 +260,7 @@
           <div class="card h-100">
             <img src="{% static 'project/img/1.png' %}" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='sanciones' %}">Cuantos contratos y cuanto cobran al estado luego de ser sancionadas?</a></h5>
+              <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='sanciones' %}">Empresas sancionadas que aún contratan con el estado</a></h5>
               <p class="card-text">Monto facturado por empresa después de ser sancionadas por: interferir en proceso, incumplir contrato, documentación falsa, etc.</p>
             </div>
           </div>
@@ -274,6 +275,7 @@
           </div>
         </div>{% endcomment %}
       </div>
+
       {% comment %}<div class="row w-100" style="padding: 100px 0; ">
         <div class="col" style="width: 45%; margin-top: 80px;">
           <img src="{% static 'project/img/image_3.png' %}" alt="">
