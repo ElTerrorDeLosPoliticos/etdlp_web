@@ -77,6 +77,17 @@
             separateWordSearch: false,
           },
           buttons: [{
+            text: 'Ver diccionario de datos',
+            className: 'btn bg-danger btn-etdlp text-white',
+            action: function (e, dt, node, config) {
+              let link = document.createElement("a");
+              link.setAttribute('download', '');
+              link.href = '{% static 'project/diccionario_de_datos.xlsx' %}';
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+            }
+          }, {
             extend: 'excel',
             text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
             {% block filename_excel %}
@@ -84,7 +95,9 @@
                 return `******`
               },
             {% endblock %}
-          }],
+          },
+
+          ],
           oSearch: {sSearch: searched_value},
           serverSide: true,
           {% block table_data %}

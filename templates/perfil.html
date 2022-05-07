@@ -23,7 +23,7 @@
         {{ empresa.razon_social }}
       </h2>
       <div style="font-size: 20px;line-height: 1.5">
-        <div>{{ empresa.tipoempresa }} <br> RUC: {{ empresa.ruc }}</div>
+        <div>{{ empresa.tipoempresa|default:'' }} <br> RUC: {{ empresa.ruc }}</div>
       </div>
 
     </div>
@@ -299,6 +299,17 @@
       {% if administrativos_length %}
         $('#administrativos-table').DataTable({
             buttons: [{
+              text: 'Ver diccionario de datos',
+              className: 'btn bg-danger btn-etdlp text-white',
+              action: function (e, dt, node, config) {
+                let link = document.createElement("a");
+                link.setAttribute('download', '');
+                link.href = '{% static 'project/diccionario_de_datos.xlsx' %}';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+              }
+            }, {
               extend: 'excel',
               text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
               filename: `*_administrativa_{{ empresa.ruc }}`,
@@ -327,6 +338,17 @@
       {% if geograficas_length %}
         $('#geo-table').DataTable({
             buttons: [{
+              text: 'Ver diccionario de datos',
+              className: 'btn bg-danger btn-etdlp text-white',
+              action: function (e, dt, node, config) {
+                let link = document.createElement("a");
+                link.setAttribute('download', '');
+                link.href = '{% static 'project/diccionario_de_datos.xlsx' %}';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+              }
+            }, {
               extend: 'excel',
               text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
               filename: `*_geografica_{{ empresa.ruc }}`,
@@ -345,6 +367,17 @@
       {% endif %}
       $('#contratos-table').DataTable({
           buttons: [{
+            text: 'Ver diccionario de datos',
+            className: 'btn bg-danger btn-etdlp text-white',
+            action: function (e, dt, node, config) {
+              let link = document.createElement("a");
+              link.setAttribute('download', '');
+              link.href = '{% static 'project/diccionario_de_datos.xlsx' %}';
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+            }
+          }, {
             extend: 'excel',
             text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
             filename: `*_contratos_{{ empresa.ruc }}`,
@@ -370,6 +403,17 @@
       );
       $('#sanciones-table').DataTable({
           buttons: [{
+            text: 'Ver diccionario de datos',
+            className: 'btn bg-danger btn-etdlp text-white',
+            action: function (e, dt, node, config) {
+              let link = document.createElement("a");
+              link.setAttribute('download', '');
+              link.href = '{% static 'project/diccionario_de_datos.xlsx' %}';
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+            }
+          }, {
             extend: 'excel',
             text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
             filename: `*_sanciones_{{ empresa.ruc }}`,

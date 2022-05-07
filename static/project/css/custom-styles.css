@@ -144,14 +144,16 @@ table.dataTable thead th {
 table.dataTable.no-footer {
   border-bottom: 1px solid rgb(17 17 17 / 30%);
 }
+button.dt-button {
+  padding: 5px 30px;
+  font-weight: 500;
+  border-radius: 20px;
+}
 
 button.dt-button.buttons-excel {
   background: rgb(255 255 255 / 0%);
   color: var(--bs-success);
   border: 2px solid var(--bs-success);
-  padding: 5px 30px;
-  font-weight: 500;
-  border-radius: 20px;
 }
 
 button.dt-button.buttons-excel:hover {
