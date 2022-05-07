@@ -54,6 +54,11 @@ class SancionesSerializer(serializers.ModelSerializer):
         fields = ['descripcion', 'motivos', 'fechaini_field', 'fechafin_field', 'meses_sancionado', 'vigente', 'montotexto', 'nrores']
 
 
+"""
+    Serializers para viewsets    
+"""
+
+
 class PerfilSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
 
@@ -62,4 +67,37 @@ class PerfilSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = legacy_models.ProveedoresBuscadorUtf
+        fields = '__all__'
+
+
+class ReporteContratosSerializer(serializers.ModelSerializer):
+    link = serializers.SerializerMethodField()
+
+    def get_link(self, instance):
+        return reverse('perfil_empresa', kwargs={'ruc': instance.ruc})
+
+    class Meta:
+        model = legacy_models.AnalysisContratosEmpresasInhabilitadas
+        fields = '__all__'
+
+
+class ReporteEmpresasSerializer(serializers.ModelSerializer):
+    link = serializers.SerializerMethodField()
+
+    def get_link(self, instance):
+        return reverse('perfil_empresa', kwargs={'ruc': instance.ruc})
+
+    class Meta:
+        model = legacy_models.AnalysisContratosDuranteSancion
+        fields = '__all__'
+
+
+class ReporteSancionesSerializer(serializers.ModelSerializer):
+    link = serializers.SerializerMethodField()
+
+    def get_link(self, instance):
+        return reverse('perfil_empresa', kwargs={'ruc': instance.ruc})
+
+    class Meta:
+        model = legacy_models.AnalysisEmpresasSancionadasContratadoras
         fields = '__all__'

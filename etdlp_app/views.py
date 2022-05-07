@@ -1,5 +1,6 @@
 from django.db.models import Count, Q, Sum
 from django.shortcuts import render, redirect
+from django.http import Http404
 from legacy import models as legacy_models
 from etdlp_app.serializers import SocioSerializer, AdministrativosSerializer, GeograficasSerializer, ContratoSerializer, ContratantesCountSerializer, TipoContratoCountSerializer, SancionesSerializer, PerfilSerializer
 import json
@@ -105,28 +106,47 @@ def resultado_proveedores(request):
 
 
 portada_reportes = {
-    'title': 'Buscador de Reportes',
-    'description': 'Desc reportes',
-    'img': 'project/img/img_proveedores.png',
-    'placeholder': 'DNI, RUC o Nombre',
-    'url_resultado': 'resultado_reportes',
+    'contratos': {
+        'title': 'Contratos de Interés',
+        'meaning': 'c',
+        'html': 'contratos',
+    },
+    'empresas': {
+        'title': 'Empresas de Interés',
+        'meaning': 'e',
+        'html': 'empresas_interes',
+    },
+    'sanciones': {
+        'title': 'Sancionadas',
+        'meaning': 's',
+        'html': 'sanciones',
+    },
 }
 
 
-def buscador_reportes(request):
-    context = {
-        **portada_proveedores
-    }
-    return render(request, 'buscador/buscador_base.html', context)
+# def buscador_reportes(request, tabla):
+#     if tabla in ['empresas', 'contratos', 'sanciones']:
+#         context = {
+#             **portada_reportes,
+#             'title': portada_reportes.get(tabla).get('title'),
+#         }
+#         return render(request, 'buscador/buscador_base.html', context)
+#     else:
+#         raise Http404()
 
 
-def resultado_reportes(request):
-    query = request.GET.get('q', '')
-    context = {
-        **portada_proveedores,
-        'query': query.strip(),
-    }
-    return render(request, 'resultados/resultados_base.html', context)
+def resultado_reportes(request, tabla):
+    if tabla in ['empresas', 'contratos', 'sanciones']:
+        query = request.GET.get('q', '')
+        context = {
+            'placeholder': 'RUC o Razón Social',
+            'title': portada_reportes.get(tabla).get('title'),
+            'meaning': portada_reportes.get(tabla).get('meaning'),
+            'query': query.strip(),
+        }
+        return render(request, 'resultados/resultados_{}.html'.format(portada_reportes.get(tabla).get('html')), context)
+    else:
+        raise Http404()
 
 
 def buscador_perfiles(request):

@@ -1,0 +1,75 @@
+{% extends 'resultados/resultados_base.html' %}
+
+{% block above_table %}{% endblock %}
+{% block below_table %}{% endblock %}
+<script>
+  let datatable = {
+    {% block filename_excel %}
+      filename: function () {
+        return `*_ReporteSanciones_(${searched_value})`
+      },
+    {% endblock %}
+    {% block table_data %}
+      ajax: '{% url 'api_reporte-sanciones-list' %}?format=datatables',
+      columns: [
+        {data: "link", className: "d-none disallow-mark",},
+        {
+          data: "ruc", title: 'RUC', className: "align-middle", render: function (data, type, row) {
+            if (type === 'display') {
+              return `<a target="_blank" href="${row.link}">${data}</a>`;
+            } else {
+              return data
+            }
+          }
+        },
+        {data: "razon_social", title: 'Razón Social', className: "align-middle"},
+        {data: "a", title: 'A', className: "align-middle disallow-mark"},
+        {data: "b", title: 'B', className: "align-middle disallow-mark"},
+        {data: "c", title: 'C', className: "align-middle disallow-mark"},
+        {data: "d", title: 'D', className: "align-middle disallow-mark"},
+        {data: "e", title: 'E', className: "align-middle disallow-mark"},
+        {data: "f", title: 'F', className: "align-middle disallow-mark"},
+        {data: "g", title: 'G', className: "align-middle disallow-mark"},
+        {data: "sanciones", title: '# Sanciones', className: "align-middle disallow-mark"},
+        {data: "primera_sancion", title: 'Primera Sanción en', className: "align-middle disallow-mark", render: function (data, type) {
+            if (data) {
+              let date = moment(data, "YYYY-MM-DD");
+              return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+            } else {
+              return (type === 'display') ? '--' : data;
+            }
+          },},
+        {data: "monto_ganado", title: 'Monto Total', className: "align-middle disallow-mark", render: function (data, type) {
+            if (type === 'display') {
+              return data ? `S/. ${data}` : '--'
+            } else {
+              return data
+            }
+          },},
+        {data: "contratos_ganados", title: '# Contratos', className: "align-middle disallow-mark"},
+      ],
+      columnDefs: [
+        {
+          targets: [1, 2, -4,-3,-2,-1],
+          render: function (data, type) {
+            if (type === 'display') {
+              return (data) ? data : '--';
+            } else {
+              return data
+            }
+          },
+        },
+        {
+          searchable: false,
+          "targets": [0, -1]
+        },
+        {
+          orderable: false,
+          "targets": [0]
+        }
+      ],
+      order: [1, 'asc'],
+    {% endblock %}
+  }
+</script>
+{% block extrajs_resultados %}{% endblock %}

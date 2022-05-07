@@ -1,10 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'resultados/resultados_base.html' %}
 
-  </body>
-</html>
+{% block above_table %}{% endblock %}
+{% block below_table %}{% endblock %}
+<script>
+  let datatable = {
+    {% block filename_excel %}
+      filename: function () {
+        return `*_ReporteContratos_(${searched_value})`
+      },
+    {% endblock %}
+    {% block table_data %}
+      ajax: '{% url 'api_reporte-contratos-list' %}?format=datatables',
+      columns: [
+        {data: "link", className: "d-none disallow-mark",},
+        {
+          data: "ruc", title: 'RUC', className: "align-middle", render: function (data, type, row) {
+            if (type === 'display') {
+              return `<a target="_blank" href="${row.link}">${data}</a>`;
+            } else {
+              return data
+            }
+          }
+        },
+        {data: "razon_social", title: 'Razón Social', className: "align-middle"},
+        {data: "nomentcont", title: 'Entidad Contratante', className: "align-middle disallow-mark"},
+        {data: "descontprov", title: 'Descripción', className: "align-middle disallow-mark"},
+        {
+          data: "montoorigen", title: 'Monto Total', className: "align-middle disallow-mark", render: function (data, type) {
+            if (type === 'display') {
+              return data ? `S/. ${data}` : '--'
+            } else {
+              return data
+            }
+          },
+        },
+        {
+          data: "fecha", title: 'Fecha', className: "align-middle disallow-mark", render: function (data, type) {
+            if (data) {
+              let date = moment(data, "YYYY-MM-DD");
+              return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+            } else {
+              return (type === 'display') ? '--' : data;
+            }
+          },
+        },
+        {data: "codcontprov", title: 'Código Contrato', className: "align-middle disallow-mark"},
+      ],
+      columnDefs: [
+        {
+          targets: [1, 2, 3, 4, -1],
+          render: function (data, type) {
+            if (type === 'display') {
+              return (data) ? data : '--';
+            } else {
+              return data
+            }
+          },
+        },
+        {
+          searchable: false,
+          "targets": [0, 3, 4, 5, 6, 7]
+        },
+        {
+          orderable: false,
+          "targets": [0]
+        }
+      ],
+      order: [1, 'asc'],
+    {% endblock %}
+  }
+</script>
+{% block extrajs_resultados %}{% endblock %}

@@ -1,13 +1,32 @@
 from rest_framework import viewsets
 from rest_framework_datatables.filters import DatatablesFilterBackend
 
-from etdlp_app.serializers import PerfilSerializer
-from legacy.models import ProveedoresBuscadorUtf
+from etdlp_app.serializers import PerfilSerializer, \
+    ReporteContratosSerializer, ReporteEmpresasSerializer, ReporteSancionesSerializer
+from legacy.models import ProveedoresBuscadorUtf, \
+    AnalysisEmpresasSancionadasContratadoras, AnalysisContratosEmpresasInhabilitadas, AnalysisContratosDuranteSancion
 
 
-class ProveedoresViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = PerfilSerializer
+class BaseViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = [DatatablesFilterBackend, ]
-
-    queryset = ProveedoresBuscadorUtf.objects.all().order_by('ruc')
     permission_classes = []
+
+
+class ProveedoresViewSet(BaseViewSet):
+    serializer_class = PerfilSerializer
+    queryset = ProveedoresBuscadorUtf.objects.all()
+
+
+class ReporteContratosViewSet(BaseViewSet):
+    serializer_class = ReporteContratosSerializer
+    queryset = AnalysisContratosEmpresasInhabilitadas.objects.all()
+
+
+class ReporteEmpresasViewSet(BaseViewSet):
+    serializer_class = ReporteEmpresasSerializer
+    queryset = AnalysisContratosDuranteSancion.objects.all()
+
+
+class ReporteSancionesViewSet(BaseViewSet):
+    serializer_class = ReporteSancionesSerializer
+    queryset = AnalysisEmpresasSancionadasContratadoras.objects.all()

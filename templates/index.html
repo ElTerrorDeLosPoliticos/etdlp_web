@@ -52,6 +52,36 @@
       font-size: 16px;
       font-weight: 300;
     }
+
+    .bg-5 .card {
+      border: none;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      -webkit-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      -moz-box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      margin-right: 3.5rem;
+      margin-left: 3.5rem;
+    }
+
+    .bg-5 .card .card-body {
+      padding: 24px;
+    }
+
+    .bg-5 .card .card-title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .bg-5 .card .card-text {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 20px;
+    }
+
+    .bg-5 .card-img-top {
+      background-color: #F6F6FC;
+      height: 300px;
+      object-fit: cover;
+    }
   </style>
 {% endblock %}
 {% block body %}
@@ -204,9 +234,47 @@
 
   </section>
   {#################  SANCIONES  ################}
-  <section style="background-color: #2C3E5C;margin-top: -1px;">
+  <section class="bg-5" style="background-color: #2C3E5C;margin-top: -1px;">
     <div class="container">
-      <div class="row w-100" style="padding: 100px 0; ">
+      <div class="row">
+        <div class="col">
+          <div class="card h-100">
+            <img src="{% static 'project/img/image_3.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='contratos' %}">Contratos de Interés</a></h5>
+              <p class="card-text">Contratos suscritos durante el periodo de inhabilitación de empresas contratada</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="{% static 'project/img/2.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='empresas' %}">Empresas de Interés</a></h5>
+              <p class="card-text">Empresas Inhabilitadas que contratan.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="{% static 'project/img/1.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='sanciones' %}">Cuantos contratos y cuanto cobran al estado luego de ser sancionadas?</a></h5>
+              <p class="card-text">Monto facturado por empresa después de ser sancionadas por: interferir en proceso, incumplir contrato, documentación falsa, etc.</p>
+            </div>
+          </div>
+        </div>
+        {% comment %}<div class="col">
+          <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
+        </div>{% endcomment %}
+      </div>
+      {% comment %}<div class="row w-100" style="padding: 100px 0; ">
         <div class="col" style="width: 45%; margin-top: 80px;">
           <img src="{% static 'project/img/image_3.png' %}" alt="">
         </div>
@@ -223,9 +291,9 @@
               </div>
             </div>
           </div>
-          <a class="btn btn-etdlp btn-etdlp-dark mt-5" href="{% url 'buscador_perfiles' %}">Ver tablas</a>
+{#          <a class="btn btn-etdlp btn-etdlp-dark mt-5" href="{% url 'buscador_perfiles' %}">Ver tablas</a>#}
         </div>
-      </div>
+      </div>{% endcomment %}
     </div>
 
   </section>

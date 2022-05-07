@@ -84,6 +84,10 @@
 
       let $input = $('#query')
 
+      if (searched_value !== '') {
+        $("html, body").animate({scrollTop: $('#resultados-section').offset().top - 100});
+      }
+
       function buscar() {
         let value = $input.val().trim()
         $input.val(value)
