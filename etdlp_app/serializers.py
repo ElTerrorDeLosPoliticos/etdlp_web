@@ -55,9 +55,15 @@ class SancionesSerializer(serializers.ModelSerializer):
 
 
 class RankingMontoSerializer(serializers.ModelSerializer):
+    percentage = serializers.SerializerMethodField()
+
+    def get_percentage(self, instance):
+        monto_total = 178477159214.0
+        return instance.monto_ganado * 100.0 / monto_total
+
     class Meta:
         model = legacy_models.AnalysisEmpresasSancionadasContratadoras
-        fields = ['razon_social', 'monto_ganado']
+        fields = ['razon_social', 'monto_ganado', 'percentage']
 
 
 class RankingSancionesSerializer(serializers.ModelSerializer):
@@ -70,6 +76,7 @@ class RankingContratosSerializer(serializers.ModelSerializer):
     class Meta:
         model = legacy_models.AnalysisEmpresasSancionadasContratadoras
         fields = ['razon_social', 'contratos_ganados']
+
 
 """
     Serializers para viewsets    

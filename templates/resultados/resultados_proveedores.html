@@ -33,11 +33,11 @@
         {data: "razon_social", title: 'Razón Social', className: "align-middle"},
         {data: "tipoempresa", title: 'Tipo de Empresa', className: "align-middle disallow-mark"},
         {data: "organos_nomb_apell", title: 'Administrativos', className: "align-middle"},
-        {data: "organos_nrodocumento", title: 'Administrativos', className: "align-middle d-none"},
+        {data: "organos_nrodocumento", title: 'Administrativos', className: "align-middle"},
         {data: "representantes_nomb_apell", title: 'Representantes', className: "align-middle"},
-        {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle d-none"},
+        {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle"},
         {data: "socios", title: 'Socios', className: "align-middle"},
-        {data: "socios_dni", title: 'Socios', className: "align-middle d-none"},
+        {data: "socios_dni", title: 'Socios', className: "align-middle"},
         {data: "seace_registros", title: '# Contratos', className: "align-middle dt-body-right disallow-mark"},
         {
           data: "seace_gasto_total", title: 'Monto Total', className: "align-middle dt-body-right dt-body-nowrap disallow-mark", render: function (data, type) {
@@ -48,8 +48,8 @@
             }
           }
         },
-        {data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
-        {data: "seace_fecha_max", title: 'Fecha Max', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
+        {% comment %}{data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},{% endcomment %}
+        {data: "n_sanciones", title: '# Sanciones', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
       ],
       columnDefs: [
         {
@@ -71,7 +71,7 @@
               return data
             }
           },
-        },
+        },{% comment %}
         {
           targets: [-1, -2],
           render: function (data, type) {
@@ -82,7 +82,7 @@
               return (type === 'display') ? '--' : data;
             }
           },
-        },
+        },{% endcomment %}
         {
           searchable: false,
           "targets": [0, 3, -4, -3, -2, -1]

@@ -2,20 +2,34 @@
 {% load static %}
 
 {% block above_table %}{% endblock %}
+{% block dict_sanciones %}
+  <section class="bg-white" style="padding: 50px 0">
+    <div class="container">
+      <h4 style="margin-bottom: 50px">Tipos de sanciones:</h4>
+      <p>A: Interferir en el proceso correcto de contratacion</p>
+      <p>B: Resolución del contrato</p>
+      <p>C: Contratar o presentarse a convocatoria estando impedido o sin cumplir con los requisitos</p>
+      <p>D: Incumplir contrato</p>
+      <p>E: Documentación e información falsa o inexacta </p>
+      <p>F: Subcontratar sin autorización o encontra de lo permitido/p>
+      <p>G: Otros</p>
+    </div>
+  </section>
+{% endblock %}
+{% block meaning_block %}
+  <p>Información de empresas contratistas que han sido sancionados alguna vez, como por ejemplo los tipos de sanciones que han tenido, la cantidad de monto ganado desde su primera sancion y el número de contratos ganados.
+    En este caso, solo se consideran contratos a partir de su primera sanción.</p>
+  <p>Las sanciones no necesariamente inhabilitan a una empresa a contratar indefinidamente con el estado, pero resulta relevante analizar que tanta cuota de los contratos del estado acaparan estas empresas.
+  </p>
+  <p>En este caso, en los últimos 4 años (2018-actualidad), el monto de los contratos totales es de 178,477,160,000 soles. La cuota de las empresas sancionadas es de 31,146,540,000 soles, lo que representa un 17.4% del total de monto contratado en estos años. 2019 empresas corresponden a estas
+    condiciones, de las 21598 que han aplicado a contratos en los últimos 4 años, un 9.3 %.
+  </p>
+{% endblock %}
+
 {% block below_table %}
   <section class="bg-white">
     <div class="container">
-      <h2>Un poco de visualización...</h2>
-      <div class="row w-100">
-        <div class="col">
-          <h4>El pie chart del porcentaje</h4>
-        </div>
-        <div class="col">
-          <h4>Tipos de sanciones</h4>
-          <div id="tipo_sanciones-pie" style="width: 100%;height:300px;"></div>
-        </div>
-      </div>
-
+      <h2 style="padding: 100px 0 50px">Un poco de visualización...</h2>
       <div>
         <div id="ranking_monto-bar" style="width: 100%;height:500px;"></div>
       </div>
@@ -25,9 +39,17 @@
       <div>
         <div id="ranking_contratos-bar" style="width: 100%;height:500px;"></div>
       </div>
+      <div class="row w-100" style="margin-top: 50px">
+        <div class="col-6">
+          <h4>Sanciones por departamento</h4>
+          <img src="{% static 'project/img/sanciones_departamento.jpg' %}" class="w-100" alt="">
+        </div>
+        <div class="col-6">
+          <h4>Tipos de sanciones</h4>
+          <div id="tipo_sanciones-pie" style="width: 100%;height:300px;"></div>
+        </div>
+      </div>
 
-      <h2>Sanciones por departamento</h2>
-      <img src="{% static 'project/img/sanciones_departamento.jpg' %}" alt="">
     </div>
   </section>
 {% endblock %}
@@ -175,6 +197,14 @@
           trigger: "item",
           axisPointer: {
             type: "shadow"
+          },
+          formatter: (params) => {
+            console.log(params)
+            return `
+                {% comment %}${params.seriesName} <br/><br/>{% endcomment %}
+                ${params.name}: <b>S/. ${params.data.monto_ganado}</b><br/>
+                Porcentaje de 2018-2022: <b>${params.data.percentage.toFixed(2)}%</b><br/>
+                `;
           },
         },
         dataset: [
@@ -370,6 +400,13 @@
           datasetIndex: 1
         }
       });
+
+      window.onresize = function () {
+        tipoSancionesPieChart.resize();
+        rankingMontoBarChart.resize();
+        rankingSancionesBarChart.resize();
+        rankingContratosBarChart.resize();
+      };
     })
 
 

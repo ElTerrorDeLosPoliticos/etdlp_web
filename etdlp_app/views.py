@@ -108,17 +108,14 @@ def resultado_proveedores(request):
 portada_reportes = {
     'contratos': {
         'title': 'Contratos de Interés',
-        'meaning': 'c',
         'html': 'contratos',
     },
     'empresas': {
         'title': 'Empresas de Interés',
-        'meaning': 'e',
         'html': 'empresas_interes',
     },
     'sanciones': {
-        'title': 'Sancionadas',
-        'meaning': 's',
+        'title': 'Empresas sancionadas que aún contratan con el estado',
         'html': 'sanciones',
     },
 }
@@ -141,8 +138,8 @@ def resultado_reportes(request, tabla):
         context = {
             'placeholder': 'RUC o Razón Social',
             'title': portada_reportes.get(tabla).get('title'),
-            'meaning': portada_reportes.get(tabla).get('meaning'),
             'query': query.strip(),
+            'meaning' : True,
         }
         if tabla == 'sanciones':
             r_monto = legacy_models.AnalysisEmpresasSancionadasContratadoras.objects.all().order_by('-monto_ganado')[:9]

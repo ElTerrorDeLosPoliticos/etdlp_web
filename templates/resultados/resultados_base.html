@@ -50,6 +50,21 @@
       </div>
     </div>
   </section>
+  {% block dict_sanciones %}{% endblock %}
+  {% if meaning %}
+    <section class="meaning position-relative " style="padding: 60px 0;min-height: 580px; background-color: #EFEEF9">
+      <div class="container">
+        <h2 style="margin-bottom: 40px">¿Qué significa esta tabla?</h2>
+        <div style="max-width: 70%">
+          {% block meaning_block %}{% endblock %}
+        </div>
+        <img src="{% static 'project/img/image_3.png' %}" class="position-absolute" style="bottom: 10px;right: 90px; width: 302px" alt="">
+
+      </div>
+
+    </section>
+  {% endif %}
+
   {% block below_table %}{% endblock %}
 {% endblock %}
 {% block extrajs %}
