@@ -36,8 +36,10 @@ def perfil_empresa(request, ruc):
             'represents': represents,
 
             'administrativos': json.dumps(administrativos_serial),
+            'administrativos_length': len(administrativos),
 
             'geograficas': json.dumps(geograficas_serial),
+            'geograficas_length': len(geograficas),
         })
 
         contratantes_count = legacy_models.ProveedoresPerfilSeaceUtf.objects.filter(ruc=ruc).values('nomentcont').annotate(total=Count('razon_social', filter=Q(ruc=ruc)))
@@ -139,7 +141,7 @@ def resultado_reportes(request, tabla):
             'placeholder': 'RUC o Razón Social',
             'title': portada_reportes.get(tabla).get('title'),
             'query': query.strip(),
-            'meaning' : True,
+            'meaning': True,
         }
         if tabla == 'sanciones':
             r_monto = legacy_models.AnalysisEmpresasSancionadasContratadoras.objects.all().order_by('-monto_ganado')[:9]
@@ -184,3 +186,7 @@ def buscador_perfiles(request):
         'placeholder': 'RUC',
     }
     return render(request, 'buscador/buscador_base.html', context)
+
+
+def fuentes(req):
+    return render(req, 'fuentes.html', {})

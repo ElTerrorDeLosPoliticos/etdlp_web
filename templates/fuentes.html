@@ -1,0 +1,20 @@
+{% extends 'base/root.html' %}
+{% load static %}
+{% block body %}
+  <section style="background-color: white; padding-top: 200px">
+    <div class="container">
+      <h1>¿Qué datos usamos?</h1>
+      <p>Los datos de sanciones, bla bla fueron recolectados dede ell 2018 bla bla</p>
+      <p>Las fuentes de datos que utilizamos y analizamos son:</p>
+      <div class="row w-100">
+        <div class="table-responsive">
+          <table id="data" class="table order-column stripe hover">
+          </table>
+        </div>
+      </div>
+      <div class="text-center">
+        <img src="{% static 'project/img/fuentes_img.png' %}" alt="">
+      </div>
+    </div>
+  </section>
+{% endblock %}

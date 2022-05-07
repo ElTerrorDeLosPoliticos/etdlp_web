@@ -6,6 +6,7 @@ from etdlp_app import view_sets
 
 router = routers.DefaultRouter()
 router.register(r'proveedores', view_sets.ProveedoresViewSet, basename='api_proveedores')
+router.register(r'proveedores-data', view_sets.ProveedoresAPIViewSet, basename='api_proveedores')
 router.register(r'reporte-contratos', view_sets.ReporteContratosViewSet, basename='api_reporte-contratos')
 router.register(r'reporte-empresas', view_sets.ReporteEmpresasViewSet, basename='api_reporte-empresas')
 router.register(r'reporte-sanciones', view_sets.ReporteSancionesViewSet, basename='api_reporte-sanciones')
@@ -28,6 +29,7 @@ buscador_patterns = [
 urlpatterns = [
     path('', views.main_page, name='main_page'),
     path('perfil/<ruc>', views.perfil_empresa, name='perfil_empresa'),
+    path('fuentes/', views.fuentes, name='fuentes'),
     path('buscador/', include(buscador_patterns)),
     path('api/', include(router.urls))
 ]

@@ -34,36 +34,46 @@
       <p>{{ empresa.razon_social }} cuenta con {{ socios_length }} socio{{ socios_length|pluralize:",s" }} y {{ represents|length }} representante{{ represents|length|pluralize:",s" }}</p>
 
       <div class="row w-100" style="background-color: white">
-        <div class="col perfil-block border-end border-2" style="padding-left: 0;padding-right: 0">
-          <h3 style="padding-left: var(--padding-perfil-block)">Socios</h3>
-          <div id="socios-pie" style="width: 100%;height:300px;"></div>
-        </div>
-        <div class="col perfil-block border-start border-2">
-          <h3>Representantes</h3>
-          {% for represnt in represents %}
-            <div class="p-3">
-              {{ represnt.apellidosnomb }}<br>{{ represnt.sigladocide }} {{ represnt.nrodocumento }}
-            </div>
-          {% endfor %}
-        </div>
-        <div class="col col-12 perfil-block border-top border-4">
-          <h3>Información Administrativa</h3>
-          <div class="row w-100">
-            <div class="table-responsive py-5 px-3">
-              <table id="administrativos-table" class="table order-column stripe hover">
-              </table>
+        {% if socios_length %}
+          <div class="col perfil-block border-end border-2" style="padding-left: 0;padding-right: 0">
+            <h3 style="padding-left: var(--padding-perfil-block)">Socios</h3>
+            <div id="socios-pie" style="width: 100%;height:300px;"></div>
+          </div>
+        {% endif %}
+        {% if represents %}
+          <div class="col perfil-block border-start border-2">
+            <h3>Representantes</h3>
+            {% for represnt in represents %}
+              <div class="p-3">
+                {{ represnt.apellidosnomb }}<br>{{ represnt.sigladocide }} {{ represnt.nrodocumento }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if administrativos_length %}
+          <div class="col col-12 perfil-block border-top border-4">
+            <h3>Información Administrativa</h3>
+            <div class="row w-100">
+              <div class="table-responsive py-5 px-3">
+                <table id="administrativos-table" class="table order-column stripe hover">
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col col-12 perfil-block border-top border-4">
-          <h3>Información Geográfica</h3>
-          <div class="row w-100">
-            <div class="table-responsive py-5 px-3">
-              <table id="geo-table" class="table order-column stripe hover">
-              </table>
+        {% endif %}
+
+        {% if geograficas_length %}
+          <div class="col col-12 perfil-block border-top border-4">
+            <h3>Información Geográfica</h3>
+            <div class="row w-100">
+              <div class="table-responsive py-5 px-3">
+                <table id="geo-table" class="table order-column stripe hover">
+                </table>
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
+
       </div>
     </div>
   </section>
@@ -128,42 +138,43 @@
 {% block extrajs %}
   <script>
     $(() => {
-      let sociosPieChart = echarts.init($('#socios-pie')[0]);
-      sociosPieChart.setOption({
-        textStyle: {
-          fontFamily: 'poppins'
-        },
-        grid: {
-          containLabel: true
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: (params) => {
-            return `
+      {% if socios_length %}
+        let sociosPieChart = echarts.init($('#socios-pie')[0]);
+        sociosPieChart.setOption({
+          textStyle: {
+            fontFamily: 'poppins'
+          },
+          grid: {
+            containLabel: true
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: (params) => {
+              return `
                 ${params.seriesName} <br/><br/>
                 ${params.name}: <b>${params.value}%</b><br/>
                 ${params.data.sigladocide} ${params.data.nrodocumento}<br/>
                 Ingreso: ${params.data.fechaingreso}<br/>
                 `;
+            },
           },
-        },
-        series: [
-          {
-            name: 'Acciones',
-            type: 'pie',
-            {#radius: '65%',#}
-            data: {{ socios_chart|safe }},
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
+          series: [
+            {
+              name: 'Acciones',
+              type: 'pie',
+              {#radius: '65%',#}
+              data: {{ socios_chart|safe }},
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
               }
             }
-          }
-        ]
-      });
-
+          ]
+        });
+      {% endif %}
 
       let contratantesBarChart = echarts.init($('#contratantes-bar')[0]);
       contratantesBarChart.setOption({
@@ -277,7 +288,7 @@
 
 
       window.onresize = function () {
-        sociosPieChart.resize();
+        {% if socios_length %}sociosPieChart.resize();{% endif %}
         contratantesBarChart.resize();
         tipocontratoPieChart.resize();
       };
@@ -285,49 +296,53 @@
   </script>
   <script>
     $(() => {
-      $('#administrativos-table').DataTable({
-          buttons: [{
-            extend: 'excel',
-            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
-            filename: `*_administrativa_{{ empresa.ruc }}`,
-          }],
-          data: {{ administrativos|safe }},
-          columns: [
-            {data: "apellidosnomb", title: "Nombre y Apellidos", className: "align-middle"},
-            {data: "sigladocide", title: "Documento", className: "align-middle"},
-            {data: "nrodocumento", title: "Número de Documento", className: "align-middle"},
-            {data: "desccargo", title: "Cargo", className: "align-middle"},
-            {data: "desctipoorgano", title: "Órgano", className: "align-middle"},
-            {
-              data: "fechaingreso", title: "Fecha Ingreso", className: "align-middle", render: function (data, type) {
-                if (data) {
-                  let date = moment(data, "DD/MM/YYYY");
-                  return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
-                } else {
-                  return (type === 'display') ? '--' : data;
+      {% if administrativos_length %}
+        $('#administrativos-table').DataTable({
+            buttons: [{
+              extend: 'excel',
+              text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+              filename: `*_administrativa_{{ empresa.ruc }}`,
+            }],
+            data: {{ administrativos|safe }},
+            columns: [
+              {data: "apellidosnomb", title: "Nombre y Apellidos", className: "align-middle"},
+              {data: "sigladocide", title: "Documento", className: "align-middle"},
+              {data: "nrodocumento", title: "Número de Documento", className: "align-middle"},
+              {data: "desccargo", title: "Cargo", className: "align-middle"},
+              {data: "desctipoorgano", title: "Órgano", className: "align-middle"},
+              {
+                data: "fechaingreso", title: "Fecha Ingreso", className: "align-middle", render: function (data, type) {
+                  if (data) {
+                    let date = moment(data, "DD/MM/YYYY");
+                    return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
+                  } else {
+                    return (type === 'display') ? '--' : data;
+                  }
                 }
-              }
-            },
-          ],
-        }
-      );
-      $('#geo-table').DataTable({
-          buttons: [{
-            extend: 'excel',
-            text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
-            filename: `*_geografica_{{ empresa.ruc }}`,
-          }],
-          data: {{ geograficas|safe }},
-          columns: [
-            {data: "departamento", title: "Departamento", className: "align-middle"},
-            {data: "provincia", title: "Provincia", className: "align-middle"},
-            {data: "distrito", title: "Distrito", className: "align-middle"},
-            {data: "estado", title: "Estado", className: "align-middle"},
-            {data: "condicion", title: "Condición", className: "align-middle"},
-            {data: "codigoregistro", title: "Código Registro", className: "align-middle"},
-          ],
-        }
-      );
+              },
+            ],
+          }
+        );
+      {% endif %}
+      {% if geograficas_length %}
+        $('#geo-table').DataTable({
+            buttons: [{
+              extend: 'excel',
+              text: '<i class="fa fa-file-excel me-1"></i> Exportar a Excel',
+              filename: `*_geografica_{{ empresa.ruc }}`,
+            }],
+            data: {{ geograficas|safe }},
+            columns: [
+              {data: "departamento", title: "Departamento", className: "align-middle"},
+              {data: "provincia", title: "Provincia", className: "align-middle"},
+              {data: "distrito", title: "Distrito", className: "align-middle"},
+              {data: "estado", title: "Estado", className: "align-middle"},
+              {data: "condicion", title: "Condición", className: "align-middle"},
+              {data: "codigoregistro", title: "Código Registro", className: "align-middle"},
+            ],
+          }
+        );
+      {% endif %}
       $('#contratos-table').DataTable({
           buttons: [{
             extend: 'excel',
