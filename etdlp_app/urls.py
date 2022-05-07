@@ -6,7 +6,7 @@ from etdlp_app import view_sets
 
 router = routers.DefaultRouter()
 router.register(r'proveedores', view_sets.ProveedoresViewSet, basename='api_proveedores')
-router.register(r'proveedores-data', view_sets.ProveedoresAPIViewSet, basename='api_proveedores')
+router.register(r'proveedores-data', view_sets.ProveedoresAPIViewSet, basename='api_proveedores-data')
 router.register(r'reporte-contratos', view_sets.ReporteContratosViewSet, basename='api_reporte-contratos')
 router.register(r'reporte-empresas', view_sets.ReporteEmpresasViewSet, basename='api_reporte-empresas')
 router.register(r'reporte-sanciones', view_sets.ReporteSancionesViewSet, basename='api_reporte-sanciones')

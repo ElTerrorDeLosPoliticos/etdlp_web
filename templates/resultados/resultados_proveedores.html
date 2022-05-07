@@ -1,11 +1,11 @@
 {% extends 'resultados/resultados_base.html' %}
-
+{% load static %}
 {% block above_table %}
   <section style="background-color: white">
     <div class="container text-center" style="padding: 50px 0">
       <label style="padding-bottom: 20px;font-weight: 600">Para más detalle de los campos, puede ver el diccionario de datos en el siguiente botón:</label>
       <br>
-      <a class="btn btn-etdlp bg-danger mb-4" href="#">Ver Diccionario de tablas</a>
+      <a class="btn btn-etdlp bg-danger mb-4" href="{% static 'project/diccionario_de_datos.xlsx' %}" download>Ver Diccionario de tablas</a>
     </div>
   </section>
 {% endblock %}
@@ -32,12 +32,65 @@
         },
         {data: "razon_social", title: 'Razón Social', className: "align-middle"},
         {data: "tipoempresa", title: 'Tipo de Empresa', className: "align-middle disallow-mark"},
-        {data: "organos_nomb_apell", title: 'Administrativos', className: "align-middle"},
-        {data: "organos_nrodocumento", title: 'Administrativos', className: "align-middle"},
-        {data: "representantes_nomb_apell", title: 'Representantes', className: "align-middle"},
-        {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle"},
-        {data: "socios", title: 'Socios', className: "align-middle"},
-        {data: "socios_dni", title: 'Socios', className: "align-middle"},
+        {
+          data: "organos_nomb_apell", title: 'Administrativos', className: "align-middle",
+          render: function (data, type, row) {
+            if (type === 'display') {
+              if (data) {
+                let nomb_list = data.split('_._')
+                let dni_list = row.organos_nrodocumento.split('_._')
+                for (let i = 0; i < nomb_list.length; i++) {
+                  if (i < dni_list.length) {
+                    nomb_list[i] = `${nomb_list[i]} (${dni_list[i]})`
+                  }
+                }
+                return `${nomb_list.map((n) => `<li>${n}</li>`).join('')}`
+              }
+              return '--';
+            } else {
+              return data
+            }
+          }
+        },
+        {data: "organos_nrodocumento", title: 'Administrativos', className: "align-middle d-none"},
+        {data: "representantes_nomb_apell", title: 'Representantes', className: "align-middle",
+          render: function (data, type, row) {
+            if (type === 'display') {
+              if (data) {
+                let nomb_list = data.split('_._')
+                let dni_list = row.representantes_nrodocumento.split('_._')
+                for (let i = 0; i < nomb_list.length; i++) {
+                  if (i < dni_list.length) {
+                    nomb_list[i] = `${nomb_list[i]} (${dni_list[i]})`
+                  }
+                }
+                return `${nomb_list.map((n) => `<li>${n}</li>`).join('')}`
+              }
+              return '--';
+            } else {
+              return data
+            }
+          }},
+        {data: "representantes_nrodocumento", title: 'Representantes', className: "align-middle d-none"},
+        {data: "socios", title: 'Socios', className: "align-middle",
+          render: function (data, type, row) {
+            if (type === 'display') {
+              if (data) {
+                let nomb_list = data.split('_._')
+                let dni_list = row.socios_dni.split('_._')
+                for (let i = 0; i < nomb_list.length; i++) {
+                  if (i < dni_list.length) {
+                    nomb_list[i] = `${nomb_list[i]} (${dni_list[i]})`
+                  }
+                }
+                return `${nomb_list.map((n) => `<li>${n}</li>`).join('')}`
+              }
+              return '--';
+            } else {
+              return data
+            }
+          }},
+        {data: "socios_dni", title: 'Socios', className: "align-middle d-none"},
         {data: "seace_registros", title: '# Contratos', className: "align-middle dt-body-right disallow-mark"},
         {
           data: "seace_gasto_total", title: 'Monto Total', className: "align-middle dt-body-right dt-body-nowrap disallow-mark", render: function (data, type) {
@@ -48,7 +101,6 @@
             }
           }
         },
-        {% comment %}{data: "seace_fecha_min", title: 'Fecha Min', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},{% endcomment %}
         {data: "n_sanciones", title: '# Sanciones', className: "align-middle dt-body-right dt-body-nowrap disallow-mark"},
       ],
       columnDefs: [
@@ -63,29 +115,8 @@
           },
         },
         {
-          targets: [4, 5, 6, 7, 8, 9],
-          render: function (data, type) {
-            if (type === 'display') {
-              return (data) ? `${data.split('_._').map((n) => `<li>${n}</li>`).join('')}` : '--';
-            } else {
-              return data
-            }
-          },
-        },{% comment %}
-        {
-          targets: [-1, -2],
-          render: function (data, type) {
-            if (data) {
-              let date = moment(data, "YYYY-MM-DD");
-              return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
-            } else {
-              return (type === 'display') ? '--' : data;
-            }
-          },
-        },{% endcomment %}
-        {
           searchable: false,
-          "targets": [0, 3, -4, -3, -2, -1]
+          "targets": [0, 3, -3, -2, -1]
         },
         {
           orderable: false,
