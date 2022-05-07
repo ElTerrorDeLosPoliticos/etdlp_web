@@ -15,15 +15,15 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><h6 class="dropdown-header">Proveedores</h6></li>
-            <li><a class="dropdown-item ms-2" href="{% url 'buscador_proveedores' %}">Buscador</a></li>
-            <li><a class="dropdown-item ms-2" href="{% url 'buscador_perfiles' %}">Perfiles</a></li>
+            <li ><a class="dropdown-item ps-4" href="{% url 'buscador_proveedores' %}">Buscador</a></li>
+            <li><a class="dropdown-item ps-4" href="{% url 'buscador_perfiles' %}">Perfiles</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
             <li><h6 class="dropdown-header">Reportes</h6></li>
-            <li><a class="dropdown-item ms-2" href="{% url 'resultado_reportes' 'contratos' %}">Contratos de interés</a></li>
-            <li><a class="dropdown-item ms-2" href="{% url 'resultado_reportes' 'empresas' %}">Empresa de interés</a></li>
-            <li><a class="dropdown-item ms-2" href="{% url 'resultado_reportes' 'sanciones' %}">Empresas sancionadas que aún contratan con el estado</a></li>
+            <li><a class="dropdown-item ps-4" href="{% url 'resultado_reportes' 'contratos' %}">Contratos de interés</a></li>
+            <li><a class="dropdown-item ps-4" href="{% url 'resultado_reportes' 'empresas' %}">Empresa de interés</a></li>
+            <li><a class="dropdown-item ps-4" href="{% url 'resultado_reportes' 'sanciones' %}">Empresas sancionadas que aún contratan con el estado</a></li>
           </ul>
         </li>
         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'fuentes'  %}">Fuentes de información</a></li>

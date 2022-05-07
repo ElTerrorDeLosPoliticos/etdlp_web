@@ -57,11 +57,19 @@
         <h2 style="margin-bottom: 40px">¿Qué significa esta tabla?</h2>
         <div style="max-width: 70%">
           {% block meaning_block %}{% endblock %}
+          <label class="fw-bold mb-3" for="">¿Quieres estar al tanto de las actualizaciones?</label>
+          <div class="input-group" style="max-width: 60%">
+            <input class="form-control" placeholder="Ingresa tu correo" id="query" value="{{ query }}"/>
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">
+                  <button tabindex="-1" class="btn btn-link" id="send_email"> <i
+                      class="fas fa-fw fa-paper-plane"></i></button>
+                </span>
+            </div>
+          </div>
         </div>
         <img src="{% static 'project/img/image_3.png' %}" class="position-absolute" style="bottom: 10px;right: 90px; width: 302px" alt="">
-
       </div>
-
     </section>
   {% endif %}
 
@@ -139,6 +147,11 @@
         if (e.which === 13) buscar()
         $('#delete_search').toggleClass('d-none', ($input.val() === ''))
       })
+
+      $('#send_email').on('click',()=>{
+        alert('Gracias por suscribirte!');
+      })
+
     })
   </script>
   {% block extrajs_resultados %}{% endblock %}
