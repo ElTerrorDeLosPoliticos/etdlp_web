@@ -1,20 +1,46 @@
 {% extends 'base/root.html' %}
 {% load static %}
+{% block extrastyle %}
+  <style>
+  .dataTables_info{
+    display: none;
+  }
+  </style>
+{% endblock %}
 {% block body %}
   <section style="background-color: white; padding-top: 200px">
     <div class="container">
-      <h1>¿Qué datos usamos?</h1>
+      <h1 class="mb-5">¿Qué datos usamos?</h1>
       <p>Los datos de sanciones, bla bla fueron recolectados dede ell 2018 bla bla</p>
       <p>Las fuentes de datos que utilizamos y analizamos son:</p>
-      <div class="row w-100">
-        <div class="table-responsive">
+      <div class="row w-100 mt-5">
+        <div class="table-responsive" style="width:80%">
           <table id="data" class="table order-column stripe hover">
           </table>
         </div>
       </div>
-      <div class="text-center">
+      <div class="text-center py-5">
         <img src="{% static 'project/img/fuentes_img.png' %}" alt="">
       </div>
     </div>
   </section>
+{% endblock %}
+{% block extrajs %}
+  <script>
+    $(() => {
+      $('#data').DataTable({
+        buttons : [],
+        paging:false,
+        searching:false,
+          data: {{ fuentes|safe }},
+          columns: [
+            {data: null, title: "Fuente", className: "align-middle d-none", sortable:false},
+            {data: "fuente", title: "Fuente", className: "align-middle", sortable:false},
+            {data: "enlace", title: "Enlace", className: "align-middle", sortable:false},
+          ],
+        }
+      );
+
+    })
+  </script>
 {% endblock %}

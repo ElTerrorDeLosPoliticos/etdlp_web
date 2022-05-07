@@ -189,4 +189,18 @@ def buscador_perfiles(request):
 
 
 def fuentes(req):
-    return render(req, 'fuentes.html', {})
+    context = {
+        'fuentes': [
+            {
+                'fuente': 'Buscador OSCE',
+                'enlace': 'https://apps.osce.gob.pe/perfilprov-ui/'
+            },{
+                'fuente': 'SEACE',
+                'enlace': 'https://prodapp2.seace.gob.pe/seacebus-uiwd-pub/buscadorPublico/buscadorPublico.xhtml'
+            },{
+                'fuente': 'CONOSCE',
+                'enlace': 'https://bi.seace.gob.pe/pentaho/api/repos/%3Apublic%3Aportal%3Adatosabiertos.html/content?userid=public&password=key'
+            },
+        ]
+    }
+    return render(req, 'fuentes.html', context)
