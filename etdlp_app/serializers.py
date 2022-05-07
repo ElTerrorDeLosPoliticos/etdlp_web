@@ -54,6 +54,23 @@ class SancionesSerializer(serializers.ModelSerializer):
         fields = ['descripcion', 'motivos', 'fechaini_field', 'fechafin_field', 'meses_sancionado', 'vigente', 'montotexto', 'nrores']
 
 
+class RankingMontoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = legacy_models.AnalysisEmpresasSancionadasContratadoras
+        fields = ['razon_social', 'monto_ganado']
+
+
+class RankingSancionesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = legacy_models.AnalysisEmpresasSancionadasContratadoras
+        fields = ['razon_social', 'sanciones']
+
+
+class RankingContratosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = legacy_models.AnalysisEmpresasSancionadasContratadoras
+        fields = ['razon_social', 'contratos_ganados']
+
 """
     Serializers para viewsets    
 """

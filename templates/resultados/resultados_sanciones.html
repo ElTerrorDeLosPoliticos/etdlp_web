@@ -1,7 +1,36 @@
 {% extends 'resultados/resultados_base.html' %}
+{% load static %}
 
 {% block above_table %}{% endblock %}
-{% block below_table %}{% endblock %}
+{% block below_table %}
+  <section class="bg-white">
+    <div class="container">
+      <h2>Un poco de visualización...</h2>
+      <div class="row w-100">
+        <div class="col">
+          <h4>El pie chart del porcentaje</h4>
+        </div>
+        <div class="col">
+          <h4>Tipos de sanciones</h4>
+          <div id="tipo_sanciones-pie" style="width: 100%;height:300px;"></div>
+        </div>
+      </div>
+
+      <div>
+        <div id="ranking_monto-bar" style="width: 100%;height:500px;"></div>
+      </div>
+      <div>
+        <div id="ranking_sanciones-bar" style="width: 100%;height:500px;"></div>
+      </div>
+      <div>
+        <div id="ranking_contratos-bar" style="width: 100%;height:500px;"></div>
+      </div>
+
+      <h2>Sanciones por departamento</h2>
+      <img src="{% static 'project/img/sanciones_departamento.jpg' %}" alt="">
+    </div>
+  </section>
+{% endblock %}
 <script>
   let datatable = {
     {% block filename_excel %}
@@ -31,26 +60,30 @@
         {data: "f", title: 'F', className: "align-middle disallow-mark"},
         {data: "g", title: 'G', className: "align-middle disallow-mark"},
         {data: "sanciones", title: '# Sanciones', className: "align-middle disallow-mark"},
-        {data: "primera_sancion", title: 'Primera Sanción en', className: "align-middle disallow-mark", render: function (data, type) {
+        {
+          data: "primera_sancion", title: 'Primera Sanción en', className: "align-middle disallow-mark", render: function (data, type) {
             if (data) {
               let date = moment(data, "YYYY-MM-DD");
               return (type === 'display') ? date.format("DD/MM/YYYY") : date.format("X");
             } else {
               return (type === 'display') ? '--' : data;
             }
-          },},
-        {data: "monto_ganado", title: 'Monto Total', className: "align-middle disallow-mark", render: function (data, type) {
+          },
+        },
+        {
+          data: "monto_ganado", title: 'Monto Total', className: "align-middle disallow-mark", render: function (data, type) {
             if (type === 'display') {
               return data ? `S/. ${data}` : '--'
             } else {
               return data
             }
-          },},
+          },
+        },
         {data: "contratos_ganados", title: '# Contratos', className: "align-middle disallow-mark"},
       ],
       columnDefs: [
         {
-          targets: [1, 2, -4,-3,-2,-1],
+          targets: [1, 2, -4, -3, -2, -1],
           render: function (data, type) {
             if (type === 'display') {
               return (data) ? data : '--';
@@ -72,4 +105,273 @@
     {% endblock %}
   }
 </script>
-{% block extrajs_resultados %}{% endblock %}
+{% block extrajs_resultados %}
+  <script>
+    $(() => {
+      let tipoSancionesPieChart = echarts.init($('#tipo_sanciones-pie')[0]);
+      tipoSancionesPieChart.setOption({
+        textStyle: {
+          fontFamily: 'poppins'
+        },
+        grid: {
+          containLabel: true
+        },
+        legend: {
+          top: 'center',
+          left: '5%',
+          orient: 'vertical',
+        },
+        tooltip: {
+          trigger: 'item',
+          {% comment %}formatter: (params) => {
+            return `
+                ${params.seriesName} <br/><br/>
+                ${params.name}: <b>${params.value}%</b><br/>
+                ${params.data.sigladocide} ${params.data.nrodocumento}<br/>
+                Ingreso: ${params.data.fechaingreso}<br/>
+                `;
+          },{% endcomment %}
+        },
+        series: [
+          {
+            name: 'Tipos',
+            type: 'pie',
+            {#radius: '70%',#}
+            data: {{ tipo_sanciones_chart|safe }},
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            },
+            label: {
+              show: false,
+              {% comment %}position: 'center',
+              overflow: 'break',{% endcomment %}
+            },
+          }
+        ]
+      });
+
+      let rankingMontoBarChart = echarts.init($('#ranking_monto-bar')[0]);
+      rankingMontoBarChart.setOption({
+        title: {
+          text: 'Ranking según Monto Ganado',
+          textStyle: {
+            fontWeight: 'normal',
+          }
+        },
+        textStyle: {
+          fontFamily: 'poppins'
+        },
+        grid: {
+          {#top: 50,#}
+          {#bottom: 10,#}
+          containLabel: true
+        },
+        tooltip: {
+          confine: true,
+          trigger: "item",
+          axisPointer: {
+            type: "shadow"
+          },
+        },
+        dataset: [
+          {
+            source: {{ ranking_monto|safe }},
+          },
+          {% if ranking_monto_length %}
+            {
+              transform: {
+                type: 'sort',
+                config: {dimension: 'monto_ganado', order: 'desc'}
+              }
+            }
+          {% endif %}
+        ],
+        xAxis: {
+          name: 'Monto Ganado',
+          nameLocation: 'center',
+          nameGap: 25,
+          nameTextStyle: {
+            {#fontStyle: 'italic',#}
+            fontWeight: 'bold',
+          },
+          {% comment %}axisLabel: {
+            formatter: function (value, index) {
+              {#return value + 'kg';#}
+              {#console.log(value, numeral(value).format('0a'))#}
+              return (numeral(value).format('0a').toUpperCase());
+            }
+          },{% endcomment %}
+
+        },
+        yAxis: {
+          name: 'Razón Social',
+          nameLocation: 'start',
+          nameTextStyle: {
+            {#fontStyle: 'italic',#}
+            fontWeight: 'bold',
+          },
+          inverse: true,
+          type: 'category',
+          axisLabel: {
+            interval: 0,
+            rotate: 0,
+            width: '150',
+            overflow: 'truncate'
+          },
+          {#max: 3#}
+        },
+        series: {
+          type: 'bar',
+          encode: {x: 'monto_ganado', y: 'razon_social'},
+          datasetIndex: 1
+        }
+      });
+
+      let rankingSancionesBarChart = echarts.init($('#ranking_sanciones-bar')[0]);
+      rankingSancionesBarChart.setOption({
+        color: ['#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
+        title: {
+          text: 'Ranking según número de sanciones',
+          textStyle: {
+            fontWeight: 'normal',
+          }
+        },
+        textStyle: {
+          fontFamily: 'poppins'
+        },
+        grid: {
+          {#top: 50,#}
+          {#bottom: 10,#}
+          containLabel: true
+        },
+        tooltip: {
+          confine: true,
+          trigger: "item",
+          axisPointer: {
+            type: "shadow"
+          },
+        },
+        dataset: [
+          {
+            source: {{ ranking_sanciones|safe }},
+          },
+          {% if ranking_sanciones_length %}
+            {
+              transform: {
+                type: 'sort',
+                config: {dimension: 'sanciones', order: 'desc'}
+              }
+            }
+          {% endif %}
+        ],
+        xAxis: {
+          name: 'Máx. Sanciones',
+          nameLocation: 'center',
+          nameGap: 25,
+          nameTextStyle: {
+            {#fontStyle: 'italic',#}
+            fontWeight: 'bold',
+          }
+        },
+        yAxis: {
+          name: 'Razón Social',
+          nameLocation: 'start',
+          nameTextStyle: {
+            {#fontStyle: 'italic',#}
+            fontWeight: 'bold',
+          },
+          inverse: true,
+          type: 'category',
+          axisLabel: {
+            interval: 0,
+            rotate: 0,
+            width: '150',
+            overflow: 'truncate'
+          },
+          {#max: 3#}
+        },
+        series: {
+          type: 'bar',
+          encode: {x: 'sanciones', y: 'razon_social'},
+          datasetIndex: 1
+        }
+      });
+
+      let rankingContratosBarChart = echarts.init($('#ranking_contratos-bar')[0]);
+      rankingContratosBarChart.setOption({
+        color: ['#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
+        title: {
+          text: 'Ranking según Contratos Ganados',
+          textStyle: {
+            fontWeight: 'normal',
+          }
+        },
+        textStyle: {
+          fontFamily: 'poppins'
+        },
+        grid: {
+          {#top: 50,#}
+          {#bottom: 10,#}
+          containLabel: true
+        },
+        tooltip: {
+          confine: true,
+          trigger: "item",
+          axisPointer: {
+            type: "shadow"
+          },
+        },
+        dataset: [
+          {
+            source: {{ ranking_contratos|safe }},
+          },
+          {% if ranking_contratos_length %}
+            {
+              transform: {
+                type: 'sort',
+                config: {dimension: 'contratos_ganados', order: 'desc'}
+              }
+            }
+          {% endif %}
+        ],
+        xAxis: {
+          name: 'Contratos Ganado',
+          nameLocation: 'center',
+          nameGap: 25,
+          nameTextStyle: {
+            {#fontStyle: 'italic',#}
+            fontWeight: 'bold',
+          }
+        },
+        yAxis: {
+          name: 'Razón Social',
+          nameLocation: 'start',
+          nameTextStyle: {
+            {#fontStyle: 'italic',#}
+            fontWeight: 'bold',
+          },
+          inverse: true,
+          type: 'category',
+          axisLabel: {
+            interval: 0,
+            rotate: 0,
+            width: '150',
+            overflow: 'truncate'
+          },
+          {#max: 3#}
+        },
+        series: {
+          type: 'bar',
+          encode: {x: 'contratos_ganados', y: 'razon_social'},
+          datasetIndex: 1
+        }
+      });
+    })
+
+
+  </script>
+{% endblock %}

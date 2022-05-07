@@ -2,7 +2,7 @@ from django.db.models import Count, Q, Sum
 from django.shortcuts import render, redirect
 from django.http import Http404
 from legacy import models as legacy_models
-from etdlp_app.serializers import SocioSerializer, AdministrativosSerializer, GeograficasSerializer, ContratoSerializer, ContratantesCountSerializer, TipoContratoCountSerializer, SancionesSerializer, PerfilSerializer
+from etdlp_app.serializers import SocioSerializer, AdministrativosSerializer, GeograficasSerializer, ContratoSerializer, ContratantesCountSerializer, TipoContratoCountSerializer, SancionesSerializer, PerfilSerializer, RankingContratosSerializer, RankingMontoSerializer, RankingSancionesSerializer
 import json
 
 
@@ -144,6 +144,36 @@ def resultado_reportes(request, tabla):
             'meaning': portada_reportes.get(tabla).get('meaning'),
             'query': query.strip(),
         }
+        if tabla == 'sanciones':
+            r_monto = legacy_models.AnalysisEmpresasSancionadasContratadoras.objects.all().order_by('-monto_ganado')[:9]
+            r_monto_serial = RankingMontoSerializer(r_monto, many=True).data
+
+            r_sanciones = legacy_models.AnalysisEmpresasSancionadasContratadoras.objects.all().order_by('-sanciones')[:10]
+            r_sanciones_serial = RankingSancionesSerializer(r_sanciones, many=True).data
+
+            r_contratos = legacy_models.AnalysisEmpresasSancionadasContratadoras.objects.all().order_by('-contratos_ganados')[:8]
+            r_contratos_serial = RankingContratosSerializer(r_contratos, many=True).data
+
+            tipo_sanciones_chart = []
+            for le in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
+                tipo_sanciones_chart.append({
+                    'name': le,
+                    'value': legacy_models.AnalysisEmpresasSancionadasContratadoras.objects.aggregate(Sum(le.lower())).get('{}__sum'.format(le.lower()), 0.00)
+                })
+
+            reportes = {
+                'ranking_monto': json.dumps(r_monto_serial),
+                'ranking_monto_length': len(r_monto),
+                'ranking_sanciones': json.dumps(r_sanciones_serial),
+                'ranking_sanciones_length': len(r_sanciones),
+                'ranking_contratos': json.dumps(r_contratos_serial),
+                'ranking_contratos_length': len(r_contratos),
+                'tipo_sanciones_chart': tipo_sanciones_chart,
+            }
+            context = {
+                **context, **reportes
+            }
+
         return render(request, 'resultados/resultados_{}.html'.format(portada_reportes.get(tabla).get('html')), context)
     else:
         raise Http404()
