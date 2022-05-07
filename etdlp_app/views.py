@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import Count, Q, Sum
 from django.shortcuts import render, redirect
 from django.http import Http404
@@ -79,6 +80,7 @@ def perfil_empresa(request, ruc):
         })
         return render(request, 'perfil.html', context)
     except legacy_models.ProveedoresBuscadorUtf.DoesNotExist:
+        messages.error(request, 'No se encontró el perfil de '+ruc)
         return redirect('buscador_perfiles')
 
 
