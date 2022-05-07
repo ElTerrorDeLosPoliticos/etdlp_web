@@ -101,10 +101,12 @@
           <h3 class="mb-5"><span class="fw-normal">¿Tiene sanciones vigentes?:</span> {% if vigentes %}VIGENTE{% else %}NO VIGENTE{% endif %}</h3>
           <p class="h4 fw-normal">{{ empresa.razon_social }}
             <br> presenta {{ sanciones_length }} sanci{{ sanciones_length|pluralize:'ón,ones' }}
-            {% if not min_fecha_sanciones == max_fecha_sanciones %}
-              <br> entre {{ min_fecha_sanciones|default:'--' }} y {{ max_fecha_sanciones|default:'--' }}
-            {% else %}
-              <br> el {{ min_fecha_sanciones|default:'--' }}
+            {% if sanciones_length %}
+              {% if not min_fecha_sanciones == max_fecha_sanciones %}
+                <br> entre {{ min_fecha_sanciones|default:'--' }} y {{ max_fecha_sanciones|default:'--' }}
+              {% else %}
+                <br> el {{ min_fecha_sanciones|default:'--' }}
+              {% endif %}
             {% endif %}
           </p>
         </div>

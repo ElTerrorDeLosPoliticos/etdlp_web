@@ -93,7 +93,7 @@
         <div class="row w-100 h-100">
           <div class="col col-6 my-auto">
             <h1 style="font-size: 100px; color: #05060A;font-weight: 600; padding-bottom: 46px;margin:0">HORUS</h1>
-            <p style="color: #5D616F;font-size: 22px; line-height: 26px">Todas las bases de datos de proveedores del estado en un solo lugar. (2021-2022)
+            <p style="color: #5D616F;font-size: 22px; line-height: 26px">Todas las bases de datos de proveedores del estado <br> en un solo lugar.
             </p>
             {#        <button class="btn btn-warning text-white" style="padding: 2px 50px;">Estadísticas <br> Generales</button>#}
           </div>
@@ -122,7 +122,7 @@
               Desde julio 2021<br>
               Actualizado mensualmente
             </div>
-          </div>{% endcomment %}
+          </div>
         <div class="col text-center">
           <div class="number">+21K</div>
           <div class="title">Empresas Proveedoras</div>
@@ -137,6 +137,42 @@
             en nuestras bases de datos<br>
             Actualizado cada 3 meses
           </div>
+        </div>{% endcomment %}
+        <div class="col text-center">
+          <div class="number">+2M</div>
+          <div class="title">Número de Contratos</div>
+          {% comment %}<div class="description">Presidencia, Congreso, Ministerios <br>
+              Desde el 28 de julio 2021<br>
+              Actualizado diariamente
+            </div>{% endcomment %}
+        </div><div class="col text-center">
+          <div class="number">24K</div>
+          <div class="title">Empresas</div>
+          <div class="description">Presidencia, Congreso, Ministerios <br>
+              Desde el 28 de julio 2021<br>
+              Actualizado diariamente
+            </div>
+        </div>{% comment %}<div class="col text-center">
+          <div class="number">1258B</div>
+          <div class="title">Millones de Soles en contratos</div>
+          <div class="description">Presidencia, Congreso, Ministerios <br>
+              Desde el 28 de julio 2021<br>
+              Actualizado diariamente
+            </div>
+        </div{% endcomment %}<div class="col text-center">
+          <div class="number">3K</div>
+          <div class="title">Número de Sanciones</div>
+          {% comment %}<div class="description">Presidencia, Congreso, Ministerios <br>
+              Desde el 28 de julio 2021<br>
+              Actualizado diariamente
+            </div>{% endcomment %}
+        </div><div class="col text-center">
+          <div class="number">25K</div>
+          <div class="title">Número de DNIs</div>
+          {% comment %}<div class="description">Presidencia, Congreso, Ministerios <br>
+              Desde el 28 de julio 2021<br>
+              Actualizado diariamente
+            </div>{% endcomment %}
         </div>
       </div>
 
@@ -153,15 +189,15 @@
           </div>
           <div class="col col-6">
             <h1 class="section-title" style="margin: 30px 0">Buscador de Proveedores</h1>
-            <div class="section-description" style="margin-bottom: 20px;">Organizamos millones de puntos de datos en un solo lugar</div>
+            <div class="section-description" style="margin-bottom: 20px;">Organizamos millones de datos en un solo lugar</div>
             <div>
               <div class="row">
                 <div class="col col-2 section-item-icon">
                   <i class="fa fa-angle-right"></i>
                 </div>
                 <div class="col col-10 section-item">
-                  <label for="" class="title">Busca por DNI, RUC, Nombre</label>
-                  <p class="section-item-description">Encontramos cualquier coincidencia en nuestra base de datos</p>
+                  <label for="" class="title">Busca por Razón Social, RUC, DNIs y Nombres relacionados a la empresa</label>
+                  <p class="section-item-description">Encontramos cualquier coincidencia en nuestra base de datos.</p>
                 </div>
               </div>
               <div class="row">
@@ -169,7 +205,7 @@
                   <i class="fa fa-angle-right"></i>
                 </div>
                 <div class="col col-10 section-item">
-                  <label for="" class="title">Datos de distintas fuentes</label>
+                  <label for="" class="title">Datos recopilados de distintas fuentes</label>
                   <p class="description">SEACE, OSCE, TC, PJ.</p>
                 </div>
               </div>
@@ -189,7 +225,7 @@
         <div class="row w-100" style="padding: 70px 0">
           <div class="col col-6">
             <h1 class=" section-title">Perfil de Proveedores</h1>
-            <div class="section-description" style="margin: 20px 0">Con base en la información histórica, armamos perfiles que permiten responder preguntas</div>
+            <div class="section-description" style="margin: 20px 0">Con base en información histórica, armamos perfiles que permiten responder las siguientes preguntas.</div>
             <div>
               <div class="row">
                 <div class="col col-2 section-item-icon">
@@ -235,12 +271,12 @@
   <section class="bg-5" style="background-color: #2C3E5C;margin-top: -1px;">
     <div class="container text-center" style="padding: 30px 0">
       <h1 class="section-title" style="color: white; padding: 30px 0">Reportes</h1>
-      <div class="" style="color: white;margin-bottom: 40px">Analizamos 2 millones de contratos, 21 mil empresas,</div>
+      <div class="" style="color: white;margin-bottom: 40px">Analizamos 1.2 trillones de soles, 2 millones de contratos, 25 mil DNIs, 21 mil empresas y 3 mil sanciones</div>
 
       <div class="row">
         <div class="col">
           <div class="card h-100">
-            <img src="{% static 'project/img/image_3.png' %}" class="card-img-top" alt="...">
+            <img src="{% static 'project/img/reporte_contrato.png' %}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='contratos' %}">Contratos de Interés</a></h5>
               <p class="card-text">Contratos suscritos durante el periodo de inhabilitación de empresas contratada</p>
@@ -249,7 +285,7 @@
         </div>
         <div class="col">
           <div class="card h-100">
-            <img src="{% static 'project/img/2.png' %}" class="card-img-top" alt="...">
+            <img src="{% static 'project/img/reporte_empresa.png' %}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='empresas' %}">Empresas de Interés</a></h5>
               <p class="card-text">Empresas Inhabilitadas que contratan.</p>
@@ -258,7 +294,7 @@
         </div>
         <div class="col">
           <div class="card h-100">
-            <img src="{% static 'project/img/1.png' %}" class="card-img-top" alt="...">
+            <img src="{% static 'project/img/reporte_sanciones.png' %}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title"><a href="{% url 'resultado_reportes' tabla='sanciones' %}">Empresas sancionadas que aún contratan con el estado</a></h5>
               <p class="card-text">Monto facturado por empresa después de ser sancionadas por: interferir en proceso, incumplir contrato, documentación falsa, etc.</p>
